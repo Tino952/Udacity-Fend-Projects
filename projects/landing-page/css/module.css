@@ -1,0 +1,14 @@
+section {
+  margin-bottom: 4em;
+  position: relative;
+}
+
+section:nth-of-type(2n) {
+  text-align: right;
+}
+
+/* class added in the javascript file */
+
+.underline-extend {
+  background-size: 60vw 2px;
+}

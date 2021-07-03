@@ -1,0 +1,96 @@
+/* ===================================
+
+Creating background circles
+
+=================================== */
+
+
+section:nth-of-type(odd):before {
+  content: '';
+  background: rgba(255, 255, 255, 0.3);
+  z-index: -1;
+  border-radius: 50%;
+  width: 8em;
+  height: 8em;
+  position: absolute;
+  top: -60px;
+  animation: rotate 8s infinite linear;
+}
+
+/* ===================================
+
+Creating active class container
+
+=================================== */
+
+
+.active-class {
+  border: 2px #fff solid;
+  padding: 1em;
+}
+
+/* ===================================
+
+Adding Keyframes for animation
+
+=================================== */
+
+@keyframes rotate {
+    from {
+      transform:
+      rotate(0deg)
+      translate(-1em);
+    }
+
+    to {
+      transform:
+      rotate(360deg)
+      translate(-1em);
+    }
+}
+
+/* ===================================
+
+Media Queries
+
+=================================== */
+
+@media only screen and (max-width: 549px) {
+  section:nth-of-type(odd):after {
+    content: '';
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    position: absolute;
+    right: 10vw;
+    animation: rotate 8s infinite linear reverse;
+  }
+}
+
+@media only screen and (min-width: 550px){
+  section:nth-of-type(3n+1):after {
+    content: '';
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+    border-radius: 50%;
+    width: 3em;
+    height: 3em;
+    position: absolute;
+    right: 40vw;
+    animation: rotate 8s infinite linear;
+  }
+
+  section:nth-of-type(3n):after {
+    content: '';
+    background: rgba(255, 255, 255, 0.3);
+    z-index: -1;
+    border-radius: 50%;
+    width: 5em;
+    height: 5em;
+    position: absolute;
+    right: 10vw;
+    animation: rotate 8s infinite linear reverse;
+  }
+}

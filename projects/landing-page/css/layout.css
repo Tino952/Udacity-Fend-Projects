@@ -1,0 +1,64 @@
+main {
+  margin: 5vw;
+}
+
+footer {
+  background-color: black;
+  padding: 2em;
+}
+
+/* ===================================
+
+Navigation Menu
+
+=================================== */
+
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  padding: 0;
+  margin: 1em 1em;
+}
+
+.nav::after {
+  content: "";
+  flex: 0 1 6.8em;
+}
+
+.nav__container {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav__item {
+  margin: 0.5em 0.4em;
+  list-style-type: none;
+}
+
+.nav__item__link:hover {
+  border-bottom: 1px solid #fff;
+  cursor: pointer;
+}
+
+/* ===================================
+
+Media Queries
+
+=================================== */
+
+
+@media only screen and (min-width: 550px){
+  .nav {
+    justify-content: space-between;
+    flex-wrap: wrap;
+  }
+  .nav__item {
+    display: inline-block;
+  }
+
+  .nav::after {
+    content: "";
+    flex: auto;
+  }
+}
