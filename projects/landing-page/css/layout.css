@@ -18,6 +18,9 @@ Navigation Menu
 Through the repeat(auto-fill) property columns are automatically adjusted to fit
 the length of the grid container */
 
+/* this was a big learning opportunity as I originally created two separate
+flexboxes for my nav items, one for a large screen and one for a small scren.*/
+
 .nav {
   display: grid;
   grid-template-columns: repeat(auto-fill, 6.8em);
