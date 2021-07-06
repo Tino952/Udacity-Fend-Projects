@@ -13,33 +13,31 @@ Navigation Menu
 
 =================================== */
 
+
+/* creating a dynamic grid-style navigation system to fit any number of sections.
+Through the repeat(auto-fill) property columns are automatically adjusted to fit
+the length of the grid container */
+
 .nav {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-around;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 6.8em);
+  grid-gap: 0.5em;
+  justify-content: space-between;
   padding: 0;
   margin: 1em 1em;
-}
-
-.nav::after {
-  content: "";
-  flex: 0 1 6.8em;
-}
-
-.nav__container {
-  display: flex;
-  flex-direction: column;
 }
 
 .nav__item {
   margin: 0.5em 0.4em;
   list-style-type: none;
+  text-align: center;
 }
 
-.nav__item__link:hover {
+.nav__item:hover {
   border-bottom: 1px solid #fff;
   cursor: pointer;
 }
+
 
 /* ===================================
 
@@ -47,18 +45,108 @@ Media Queries
 
 =================================== */
 
+/* creating a sticky button to enable user to scroll to top of page
+Due to ease of scrolling on small screen sizes and less window width
+available, this feature only exists on larger screens */
 
 @media only screen and (min-width: 550px){
-  .nav {
-    justify-content: space-between;
-    flex-wrap: wrap;
-  }
-  .nav__item {
-    display: inline-block;
+
+  /* creating a sticky container */
+  .sticky-icky {
+    /* usable for Safari browsers */
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3em;
+    height: 0px;
+    width: 0px;
   }
 
-  .nav::after {
+  /* creating a hover helper to match the dimensions of chevron hover space.
+
+  Explanation & learnings: originally I thought it would be easiest to create
+  a chevron using only css. This requires setting properties such as
+  transform(rotate). When I included my bounce animation on hover the chevron
+  element was rather jumpy, so I decided to include a helper element to use
+  as a hover trigger. However, the keyframes animation reverted the
+  transform(rotate) property upon execution, therefore inadvertently causing
+  the chevron to rotate back to its original state when triggered by a hover.
+  I was able to nullify this effect by adding the same transform(rotate) within
+  the bounce animation. However, this caused a new problem due to the effect
+  of the rotateChevron function which rotates the chevron when said element
+  is scrolled to the top of the viewport. Hence my first impulse was to simply
+  include some javascript to counter this added rotation in my bounce animation
+  at the same point that the rotateChevron function is triggered. However,
+  instead I opted to simply add an additional helper element in my HTML,
+  (sticky-icky-hover-helper-container & sticky-icky-hover-helper) to help
+  trigger the bounce animation. This ended up being a huge workaround!
+  Future learnings: use an svg chevron image instead, this is much easier to
+  work with. In this case I could use the parent element as the animation
+  trigger, which didn't work here for the reasons stated above (chevron reverting
+  to original rotation and nulliying transform(rotate) property) */
+
+  .sticky-icky-hover-helper-container {
+    position: -webkit-sticky;
+    position: sticky;
+    top: 3em;
+    height: 0px;
+    width: 0px;
+    z-index: 1;
+  }
+
+  .sticky-icky-hover-helper {
+    position: relative;
+    width: 1.5em;
+    height: 2.5em;
+    left: -4.2vw;
+    top: -2vh;
+  }
+
+  /* creating a chevron arrow */
+
+  .sticky-icky__chevron {
+    border: solid #fff;
+    border-width: 0 0.2em 0.2em 0;
+    width: 0.8em;
+    height: 0.8em;
+    transform: rotate(-45deg);
+    position: relative;
+    left: -3.5vw;
+    transition: transform 1s;
+  }
+
+  .sticky-icky__chevron::after {
+    display: inline-block;
+    width: 0.8em;
+    height: 0.8em;
     content: "";
-    flex: auto;
+    border: solid rgb(255, 163, 26);
+    border-width: inherit;
+    position: relative;
+    left: -0.4em;
+    top: -0.45em;
+  }
+
+  /* triggering the animation on the chevron with hover helper as a trigger */
+
+  /* using an adjascent siblings combinator */
+
+  .sticky-icky-hover-helper-container:hover + .sticky-icky {
+   animation: bounce 2s;
+  }
+
+  /* rotate chevron when it reaches top of page.
+  See javascript function rotateChevron for details  */
+
+  .rotate {
+    transform: rotate(-135deg);
+  }
+
+  @keyframes bounce {
+      20% {
+        transform: translateY(-1em);
+      }
+      100% {
+        transform: none;
+      }
   }
 }

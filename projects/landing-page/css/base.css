@@ -17,9 +17,12 @@ h2 {
   background: linear-gradient(white 0 50%,rgb(255, 163, 26) 50% 100%) bottom no-repeat;
   background-size: 6em 2px;
   background-position: left bottom;
+  /* transition set to when background size inherits value of ".underline-extend"
+  from module.css. This occurs in javascript function "underlineExtend" */
   transition: background-size 1s;
 }
 
+/* Every even block of heading should be aligned to the right */
 section:nth-of-type(2n) h2 {
   background-position: right bottom;
 }

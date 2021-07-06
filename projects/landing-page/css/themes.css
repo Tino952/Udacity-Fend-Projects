@@ -24,9 +24,11 @@ Creating active class container
 =================================== */
 
 
-.active-class {
-  border: 2px #fff solid;
-  padding: 1em;
+#active-class {
+  border: 0.125em #fff solid;
+  /* adjust section padding to account for border and
+  make transition to active section less jumpy */
+  padding: 0.875em;;
 }
 
 /* ===================================
@@ -51,7 +53,8 @@ Adding Keyframes for animation
 
 /* ===================================
 
-Media Queries
+Media Queries for additional background
+circles
 
 =================================== */
 
