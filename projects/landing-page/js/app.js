@@ -206,7 +206,7 @@ function chevronScrollToTop () {
 
   const pageTop = document.querySelector("body");
 
-  const sticky = document.querySelector(".sticky-icky-hover-helper-container");
+  const sticky = document.querySelector(".sticky-icky-hover-helper");
 
   sticky.addEventListener("click", () => {
     pageTop.scrollIntoView({block: "start", behavior: "smooth"})

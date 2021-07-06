@@ -6,8 +6,15 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Landing Page project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
+In this project I created a landing page that appends an additional user-defined
+number of sections to the DOM upon loading. Thereupon a navigation menu is
+dynamically constructed based on the number of sections in the DOM.
 
-To get started, open `js/app.js` and start building out the app's functionality
+Additional functionalities include scrollIntoView for individual sections which
+are activated by clicking on the nav items. Moreover, an active-section class
+indicates which section is currently being actively viewed.
 
-For specific, detailed instructions, look at the project instructions in the Udacity Classroom.
+For personal style reasons I have decided to make the nav static and not sticky.
+Instead, I have included a minimalistic chevron hover-up icon which includes
+some of its own effects, such as a "hover-bob" effect, as well as a rotation
+when it has been scrolled to the top of the viewport. 

@@ -87,7 +87,7 @@ available, this feature only exists on larger screens */
   trigger, which didn't work here for the reasons stated above (chevron reverting
   to original rotation and nulliying transform(rotate) property) */
 
-  .sticky-icky-hover-helper-container {
+  .sticky-icky-hover-helper {
     position: -webkit-sticky;
     position: sticky;
     top: 3em;
@@ -96,7 +96,7 @@ available, this feature only exists on larger screens */
     z-index: 1;
   }
 
-  .sticky-icky-hover-helper {
+  .sticky-icky-hover-helper__child {
     position: relative;
     width: 1.5em;
     height: 2.5em;
@@ -133,7 +133,7 @@ available, this feature only exists on larger screens */
 
   /* using an adjascent siblings combinator */
 
-  .sticky-icky-hover-helper-container:hover + .sticky-icky {
+  .sticky-icky-hover-helper:hover + .sticky-icky {
    animation: bounce 2s;
   }
 
