@@ -2,9 +2,9 @@
 
 ## Table of Contents
 
-* [Instructions](#instructions)
+* [Introduction](#introduction)
 
-## Instructions
+## Introduction
 
 * In this project I created a landing page that appends an additional user-defined
 number of sections to the DOM upon loading. Thereupon a navigation menu is
