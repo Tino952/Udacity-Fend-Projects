@@ -12,10 +12,6 @@ The reason for this is because the user input triggered by the addSection functi
 would otherwise interupt repaint & reflow of our page. You can test this out by
 setting the timeout to zero. */
 setTimeout(navInit, 1000);
-/* function which calls activeClass() which adjusts border box on current
-section in viewport. A scroll delay for large screen sizes creates a smoother
-functionality */
-activeClassScrollStop();
 /* adding a scroll to top functionality to chevron */
 chevronScrollToTop();
 /* making chevron rotate when scrolled to top of viewport */
@@ -50,7 +46,7 @@ function navInit() {
     /* adding an event listener to nav items to scroll into view when
     clicked */
     node.addEventListener("click", () =>
-    /* if window is greater than 400px then scroll to center,
+    /* for large device screens scroll to center of section,
     otherwise for smaller screens scroll to top of section */
     { if (window.innerWidth > 400) {
       section.scrollIntoView({block: "center", behavior: "smooth"})}
@@ -63,7 +59,9 @@ function navInit() {
     /* appending unordered list to nav element in HTML file */
     myNav.appendChild(navUl);
 
-    underlineExtend();
+    /* function which calls activeClass() which in turn adjusts border box of
+    current section in viewport. */
+    activeClass();
   }
 
 /* ===================================
@@ -99,108 +97,70 @@ function addSections() {
 
 /* ===================================
 
-Create dynamic h2 underline effect for
-section headers
-
-=================================== */
-
-/* Each h2 container contains an inline span element that triggers the underline */
-/* The reason for this is because I want to only trigger the expanded underline when
-the user hovers over the text (contained within the span) rather than the entire header
-which stretches across full width of the container. If it was just a hover effect on then
-h2 this could have been resolved in css */
-
-function underlineExtend () {
-
-  const mySpans = document.getElementsByTagName("span");
-
-  for (let span of mySpans) {
-    span.onmouseover = function() {
-      /* targeting the parent h2 heading to increase length of underline */
-      span.parentElement.classList.add("underline-extend")
-    };
-    span.onmouseout = function() {
-      span.parentElement.classList.remove("underline-extend")
-    };
-  }
-}
-
-/* ===================================
-
 Adding Active Class marker to sections in
 viewport
 
 =================================== */
 
-/* defining function to move the active-class id to section in viewport
-This function will be activated by an event listener defined below */
-
 function activeClass () {
 
-  /* grabbing our sections and our active class id hook */
-    const mySections = document.getElementsByTagName("section");
-    myClass = document.querySelector("#active-class");
-    /* looping through our sections */
-    for (let section of mySections) {
-      /* get dimensions of our section */
-      const dimensions = section.getBoundingClientRect();
-      /* on large screens we want our entire section to be in the viewport to
-      be classified as active */
-      if (dimensions.top >=0 && dimensions.bottom <= (window.innerHeight
-        || document.documentElement.clientHeight) && window.innerWidth > 400){
-          myClass.removeAttribute("id");
-          section.setAttribute("id", "active-class");
+  let mySections = document.querySelectorAll("section");
+
+  let myNav = document.querySelector(".nav")
+
+  /* setting rootMargin to -50% margin on top and bottom. This way only the
+  section currently overlapping the very center of the viewport will be
+  triggered as the active section */
+  let config = {rootMargin: "-50% 0% -50% 0%"};
+
+  const observer = new IntersectionObserver((entries)=> {
+    entries.forEach(entry => {
+      /* clearing any active-class. Originally I opted for a toggle
+      functionality, however this turned out a little buggy */
+      entry.target.classList.remove("active-class");
+      /* checking if section intersecting the viewport's center */
+      if (entry.isIntersecting) {
+        /* if section is intersecting, then designate it as active class */
+        entry.target.classList.add("active-class");
+        /* adding the active-class marker to corresponding nav item */
+        let currentSection = entry.target.dataset.nav;
+        /* iterating through the text content i.e section names of each nav
+        item */
+        for (navItem of myNav.children) {
+          /* if the nav title is equal to the current section title, then add
+          an active class marker to the nav item */
+          if (navItem.textContent == currentSection) {
+            navItem.classList.add("nav-active-class");
+          }
+          /* otherwise, remove any active class marker on iterated nav item */
+          else {
+            navItem.classList.remove("nav-active-class");
+          }
         }
-      /* on small screens our section is active if the top is within viewport */
-      else if (window.innerWidth <= 400 && dimensions.top >=0 &&
-      dimensions.top < window.innerHeight) {
-        myClass.removeAttribute("id");
-        section.setAttribute("id", "active-class");
-      }
-      else {
-        continue;
+      } else {
+          /* without following code, the section 1 nav item would remain
+          with the active class selector when scrolling to the top of the
+          page */
+          for (navItem of myNav.children) {
+            if (navItem.classList.contains("nav-active-class")) {
+              navItem.classList.remove("nav-active-class");
+            }
+          }
       }
     }
-  }
-
-
-/* Creating an event listener for when scrolling stops
-This creates a smoother transition of active-class while scrolling through
-the page */
-
-  function activeClassScrollStop () {
-    /* Initializing timer */
-    let timer = null;
-
-    window.addEventListener("scroll", () => {
-      /* If we scroll while our timer is running, then reset timer */
-      if (timer !== null) {
-        clearTimeout(timer);
-      }
-      /* Set a timeout to fire for 200ms after we started scrolling
-      Only for large screen sizes. For small screen sizes due to
-      increased speed of scroll we switch active class immediately, also
-      to prevent an "overscroll" where user scrolls to middle of p element,
-      therefore jumping over section top active class trigger  */
-
-      if (window.innerWidth <= 550) {
-        activeClass();
-      }
-      else {
-        timer = setTimeout(() => {
-          activeClass();
-        }, 200);
-      }
-    });
-  }
-
+    )},config);
+    for (let section of mySections) {
+      observer.observe(section);
+    };
+}
 
 /* ===================================
 
-Adding scroll to top functionality to
-sticky chevron
+Chevron Functionality
 
 =================================== */
+
+/* scroll to top functionality to sticky chevron */
 
 function chevronScrollToTop () {
 
@@ -213,25 +173,32 @@ function chevronScrollToTop () {
   });
 }
 
-/* adding a function to rotate chevron counterclockwise by 90° when
-scrolling down */
+/* function to rotate chevron counterclockwise by 90° when scrolling down */
 
 function rotateChevron () {
 
   const chevron = document.querySelector(".sticky-icky__chevron");
 
-  window.addEventListener("scroll", () => {
-    /* opting against using an IntersectionObserver because this would also
-    trigger the rotate when the chevron enters the bottom of the viewport.
-    I only want a trigger when the chevron enters the top area i.e. when it
-    sticks to the top */
-    let dimensions = chevron.getBoundingClientRect();
-    /* setting trigger of 50px to top of viewport */
-    if (dimensions.top < 50) {
-      chevron.classList.add("rotate")
-    }
-    else {
-      chevron.classList.remove("rotate")
-    }
-  });
+  /* from layout.css we can see that sticky-icky container is offset from top
+  of viewport by 3em. Hence, first we compute default font size, then multiply
+  this by 3 before subtracting this value from the window's inner height, and
+  setting this value as a negative bottom margin in the rootmargin. This will
+  enable us to activate the rotate class as soon as the chevron starts to stick
+  to the top of the viewport. */
+
+  let defaultFontSize = window.getComputedStyle(document.querySelector("body")).fontSize;
+
+  let chevronSpaceFromTop = parseInt(defaultFontSize)*3;
+
+  let c = window.innerHeight - chevronSpaceFromTop;
+
+  const observer = new IntersectionObserver(([entry]) => {
+    if (entry.isIntersecting) {
+      chevron.classList.add("rotate");
+  } else {
+    chevron.classList.remove("rotate");
+  }},{rootMargin: `0px 0px -${c}px 0px`});
+
+  observer.observe(chevron);
+
 }

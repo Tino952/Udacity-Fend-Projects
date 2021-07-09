@@ -24,11 +24,15 @@ Creating active class container
 =================================== */
 
 
-#active-class {
+.active-class {
   border: 0.125em #fff solid;
   /* adjust section padding to account for border and
   make transition to active section less jumpy */
   padding: 0.875em;;
+}
+
+.nav-active-class {
+  text-decoration: underline #fff;
 }
 
 /* ===================================

@@ -8,9 +8,3 @@ section {
 section:nth-of-type(2n) {
   text-align: right;
 }
-
-/* class added to h2 heading in the javascript file */
-
-.underline-extend {
-  background-size: 20em 2px;
-}

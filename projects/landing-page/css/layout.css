@@ -23,7 +23,7 @@ flexboxes for my nav items, one for a large screen and one for a small scren.*/
 
 .nav {
   display: grid;
-  grid-template-columns: repeat(auto-fill, 6.8em);
+  grid-template-columns: repeat(auto-fill, 8em);
   grid-gap: 0.5em;
   justify-content: space-between;
   padding: 0;
@@ -36,11 +36,6 @@ flexboxes for my nav items, one for a large screen and one for a small scren.*/
   text-align: center;
 }
 
-.nav__item:hover {
-  border-bottom: 1px solid #fff;
-  cursor: pointer;
-}
-
 
 /* ===================================
 
@@ -48,13 +43,38 @@ Media Queries
 
 =================================== */
 
-/* creating a sticky button to enable user to scroll to top of page
-Due to ease of scrolling on small screen sizes and less window width
-available, this feature only exists on larger screens */
 
-@media only screen and (min-width: 550px){
+/* only enabling hover functionalities for devices with primary mouse pointer */
+/* pointer fine versus pointer course for touch screens */
+@media(hover: hover) and (pointer: fine) {
+  .nav__item:hover {
+    text-decoration: underline #fff;
+    cursor: pointer;
+  }
 
-  /* creating a sticky container */
+  /* triggering an animation on the chevron with hover helper as a trigger,
+  using an adjascent siblings combinator */
+  .sticky-icky-hover-helper:hover + .sticky-icky {
+   animation: bounce 2s;
+  }
+
+  /* animation causes chevron to move upwards by 1em and downwards again to
+  its normal position */
+  @keyframes bounce {
+      20% {
+        transform: translateY(-1em);
+      }
+      100% {
+        transform: none;
+      }
+  }
+}
+
+/* creating a sticky chevron scroll to top functionality for large screens
+only */
+@media only screen and (min-width: 800px){
+
+  /* creating a sticky container to hold chevron */
   .sticky-icky {
     /* usable for Safari browsers */
     position: -webkit-sticky;
@@ -129,27 +149,11 @@ available, this feature only exists on larger screens */
     top: -0.45em;
   }
 
-  /* triggering the animation on the chevron with hover helper as a trigger */
-
-  /* using an adjascent siblings combinator */
-
-  .sticky-icky-hover-helper:hover + .sticky-icky {
-   animation: bounce 2s;
-  }
-
-  /* rotate chevron when it reaches top of page.
-  See javascript function rotateChevron for details  */
+  /* rotating chevron when it reaches top of page.
+  See javascript function rotateChevron in app.js for details  */
 
   .rotate {
     transform: rotate(-135deg);
   }
 
-  @keyframes bounce {
-      20% {
-        transform: translateY(-1em);
-      }
-      100% {
-        transform: none;
-      }
-  }
 }
