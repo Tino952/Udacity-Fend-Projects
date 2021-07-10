@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [Introduction](#introduction)
+* [Installation](#installation)
 
 ## Introduction
 
@@ -28,5 +29,9 @@ and instead deploy interaction observers. Event listeners are still used for cli
 events.
 
 *Cheers!*
+
+## Installation
+
+* None
 
 :maple_leaf:
