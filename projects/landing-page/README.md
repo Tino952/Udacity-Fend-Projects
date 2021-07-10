@@ -28,10 +28,10 @@ of the header underline.
 and instead deploy interaction observers. Event listeners are still used for click
 events.
 
-*Cheers!*
-
 ## Installation
 
 * None
+
+*Cheers!*
 
 :maple_leaf:
