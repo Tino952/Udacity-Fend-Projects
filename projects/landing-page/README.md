@@ -3,6 +3,7 @@
 ## Table of Contents
 
 * [Introduction](#introduction)
+* [Installation](#installation)
 
 ## Introduction
 
@@ -26,6 +27,10 @@ of the header underline.
 * To maximize performance I have tried to avoid setting event listeners for scrolling
 and instead deploy interaction observers. Event listeners are still used for click
 events.
+
+## Installation
+
+* None
 
 *Cheers!*
 
