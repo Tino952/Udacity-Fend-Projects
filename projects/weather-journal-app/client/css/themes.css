@@ -1,0 +1,81 @@
+/* ===================================
+
+Header icon styling
+
+=================================== */
+
+/* offset is main container to position the icons in the flow of the header */
+
+.offset {
+  margin: 0 auto;
+  position: relative;
+  height: 12em;
+  width: 12em;
+}
+
+/* offset_image-container is intended to center child contents using flex */
+/* moreover through absolute positioning  I am able to position the container
+relative to its parent */
+
+.offset__image-container {
+  margin: 0 auto;
+  position: absolute;
+  height: 12em;
+  width: 12em;
+  display: flex;
+  justify-content: center;
+  right: -3em;
+}
+
+/* sun image */
+
+.offset__image-container__sun-icon {
+  width: 12em;
+  height: 12em;
+  animation: slide-in 2s;
+  position: absolute;
+}
+
+/* sunglasses image */
+
+.offset__image-container__sunglasses-icon {
+  position: absolute;
+  width: 6em;
+  height: 6em;
+  animation: glasses 2s;
+  top: 2.5em;
+}
+
+/* ===================================
+
+Adding Keyframes for animation
+
+=================================== */
+
+@keyframes slide-in {
+  from {
+    transform: translateX(-60em)
+    rotate(0deg)
+  }
+
+  to {
+    transform: translateX(0)
+    rotate(720deg)
+  }
+}
+
+/* keyframe glasses is intended to make sunglasses fade in */
+
+@keyframes glasses {
+  0% {
+    opacity: 0;
+  }
+
+  90% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
+  <meta name="references" content="weather data obtained from https://openweathermap.org/">
+  <title>Weather App</title>
+  <!-- importing font styles from gogle fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Tokyo+Zoo&family=Nunito&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="CSS/styles.css">
+</head>
+<body>
+  <header>
+    <h1>
+      Weather App
+    </h1>
+    <div class="offset">
+      <div class="offset__image-container">
+        <img src="assets/images/sun.png" alt="sun-icon" class="offset__image-container__sun-icon">
+        <img src="assets/images/sunglasses.png" alt="sunglasses-icon" class="offset__image-container__sunglasses-icon">
+      </div>
+    </div>
+  </header>
+  <main>
+    <div id="main-container">
+      <div id="main-container__title">
+      </div>
+      <div class="main-container__content">
+        <div class="main-container__content__day">
+          <div class="main-container__content__day__title" id="day1-title"></div>
+          <div id="day1-max"></div>
+          <div id="day1-min"></div>
+        </div>
+        <div class="main-container__content__day">
+          <div class="main-container__content__day__title" id="day2-title"></div>
+          <div id="day2-max"></div>
+          <div id="day2-min"></div>
+        </div>
+        <div class="main-container__content__day">
+          <div class="main-container__content__day__title" id="day3-title"></div>
+          <div id="day3-max"></div>
+          <div id="day3-min"></div>
+        </div>
+      </div>
+    </div>
+    <div class="pop-container">
+      <div class="city-checker-container">
+        <div class="pop-container__pop city-checker-container__city-checker">
+          <label>Did you mean?</label>
+          <div id="city-output">
+          </div>
+          <div class="city-checker__button-container">
+            <button type="button" class="city-checker__button-container__button" id ="city-yes">Yes</button>
+            <button type="button" class="city-checker__button-container__button" id ="city-no">No</button>
+          </div>
+        </div>
+      </div>
+      <div class="pop-container__pop pop-container__pop-1">
+        <label>Please enter city</label>
+        <input type="text" placeholder="Enter city name here" id ="city-input">
+        <button type="button" class="button-go" id="generate">GO!</button>
+      </div>
+      <div class="pop-container__pop-bar pop-container__pop-bar-1">
+      </div>
+    </div>
+    <div class="pop-container">
+      <div class="pop-container__pop pop-container__pop-2">
+        <label>Anything else you would like to share?</label>
+        <input type="text" placeholder="Don't be shy" id="share-content">
+        <button type="button" class="button-go" id="share-go">Share</button>
+      </div>
+      <div class="pop-container__pop-bar pop-container__pop-bar-2">
+      </div>
+    </div>
+    <div class="pop-container">
+      <div class="pop-container__pop pop-container__pop-3">
+        <div class="pop-container__pop-3__grid">
+          <label>Please enter message id:</label>
+          <div class="pop-container__pop-3__message">
+            <input type="text" placeholder="" class="pop-container__pop-3__message__id-input" id="message-id">
+            <button type="button" class="button-go" id="message-go">Search</button>
+          </div>
+          <label>Logged message:</label>
+          <div class="pop-container__pop-3__input" id="message-content">
+          </div>
+        </div>
+      </div>
+      <div class="pop-container__pop-bar pop-container__pop-bar-3">
+      </div>
+    </div>
+  </main>
+  <footer>
+    <p>
+    Header icons made with &#9829 by freepik and Vectors Market from www.flaticon.com
+    </p>
+    <p>
+      &copy Tino
+    </p>
+  </footer>
+  <script src="js/app.js"></script>
+</body>
+</html>

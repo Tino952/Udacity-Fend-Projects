@@ -1,0 +1,360 @@
+/* ===================================
+
+Weather container
+
+=================================== */
+
+/* id tags are used exclusively as js hooks */
+
+/* display is set to block using a click event listener in js */
+
+#main-container {
+  border: solid 4px #fff;
+  background-color: #f8b715;
+  box-shadow: 10px 10px #5c5cc4;
+  border-radius: 8px;
+  margin: 2em;
+  display: none;
+}
+
+#main-container__title {
+  color: #00ffcc;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 1em 2em;
+  text-align: center;
+}
+
+.main-container__content {
+  display: grid;
+  grid-template-rows: repeat(3, 1fr);
+}
+
+/* flex container to contain city name, max and min temperature divs */
+
+.main-container__content__day {
+  text-align: left;
+  color: #fff;
+  font-weight: bold;
+  border-bottom: solid 2px #5c5cc4;
+  margin: 0.5em 0.5em;
+  height: 7em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.main-container__content__day__title {
+  border-bottom: solid 1px #fff
+}
+
+.main-container__content__day:last-child {
+  border-bottom: none;
+}
+
+
+/* ===================================
+
+Media queries for weather container
+
+=================================== */
+
+@media only screen and (min-width: 400px) {
+
+  /* all related to reconfiguring flex-direction from rows to columns */
+
+  .main-container {
+    margin: 2em 5em;
+  }
+
+  .main-container__content {
+    display: grid;
+    grid-template-rows: none;
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  .main-container__content__day {
+    border-bottom: none;
+    border-right: solid 2px #5c5cc4;
+    text-align: center;
+  }
+
+  .main-container__content__day:last-child {
+    border-right: none;
+  }
+
+}
+
+/* ===================================
+
+Individual input bubbles "pop"
+
+=================================== */
+
+/* this is the main container for the individual bubbles in the body */
+
+.pop-container {
+  position: relative;
+  width: 100%;
+  margin-top: 10em;
+  height: 20em;
+}
+
+/* default config for individual bubble design, incl label & input */
+
+.pop-container__pop {
+  border: solid 4px #5c5cc4;
+  background-color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 0.5em;
+  position: relative
+}
+
+.pop-container__pop label {
+  text-align: center;
+  font-size: 14px;
+}
+
+.pop-container__pop input {
+  position: relative;
+  top: 2em;
+  text-align: center;
+  border: solid #f8b715 2px;
+  border-radius: 5px;
+}
+
+input:focus {
+  outline: none;
+  border-color: #00ffcc;
+}
+
+.pop-container__pop-bar {
+  position: absolute;
+  z-index: -1;
+}
+
+/* First input bubble - individual configuration */
+
+.pop-container__pop-1 {
+  border-radius: 38% 48% 37% 56% / 52% 50% 36% 43%;
+  height: 12em;
+  width: 13em;
+  box-shadow: 10px 5px #00ffcc;
+  left: 5em;
+}
+
+.pop-container__pop-1:hover {
+  box-shadow: 10px 5px #f8b715;
+}
+
+.pop-container__pop-1 input {
+  height: 3em;
+  width: 15em;
+  font-size: 10px;
+}
+
+.pop-container__pop-bar-1 {
+  background-image: repeating-linear-gradient(#f8b715, #fff 10%, #f8b715 20%);
+  height: 1.5em;
+  width: 5em;
+  left: 0em;
+  top: 7em;
+}
+
+.pop-container:hover > .pop-container__pop-bar-1, .pop-container:hover > .pop-container__pop-bar-2 {
+  background-image: repeating-linear-gradient(#5c5cc4, #fff 10%, #5c5cc4 20%);
+}
+
+.button-go {
+  position: relative;
+  top: 2.5em;
+  background-color: #f8b715;
+  border: 2px solid #00ffcc;
+  color: #fff;
+}
+
+.button-go:hover {
+  transform: scale(1.1);
+}
+
+.button-go:active {
+  background-color: #5c5cc4;
+}
+
+/* city-checker bubble for cases where api returns multiple hits for entered
+city */
+
+
+/* display is set to block using a click event listener in js */
+
+.city-checker-container {
+  display: none;
+}
+
+.city-checker-container__city-checker {
+  border-radius: 32% 55% 37% 50% / 50% 40% 35% 41%;
+  height: 7em;
+  width: 15em;
+  left: 4em;
+  top: -9em;
+  position: absolute;
+}
+
+/* flex is used to center content within element */
+
+#city-output {
+  position: relative;
+  top: 0.5em;
+  text-align: center;
+  border: solid #f8b715 2px;
+  border-radius: 5px;
+  height: 2em;
+  width: 12em;
+  font-size: 12px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+/* button container used to hold both the "yes" and "no" buttons */
+
+.city-checker__button-container {
+  position: relative;
+  top: 1em;
+}
+
+.city-checker__button-container__button {
+  margin: 0em 0.3em;
+  background-color: #5c5cc4;
+  border: 2px solid #00ffcc;
+  color: #fff;
+}
+
+.city-checker__button-container__button:active {
+  background-color: #f8b715;
+  border: 2px solid #5c5cc4;
+}
+
+/* ===================================
+
+Media queries for city checker on
+large screen sizes
+
+=================================== */
+
+@media only screen and (min-width: 675px) {
+
+  .city-checker {
+    left: 25em;
+    top: 2em;
+  }
+}
+
+/* Second input bubble - individual configuration */
+
+
+/* using an absolute positioning here to help position element on right
+side of body */
+
+.pop-container__pop-2 {
+  border-radius: 38% 48% 37% 56% / 27% 34% 58% 54%;
+  height: 15em;
+  width: 15em;
+  box-shadow: -10px 10px #00ffcc;
+  position: absolute;
+  right: 5em;
+}
+
+.pop-container__pop-2:hover {
+  box-shadow: -10px 10px #f8b715;
+}
+
+.pop-container__pop-2 input {
+  height: 3em;
+  width: 18em;
+  font-size: 10px;
+}
+
+.pop-container__pop-bar-2 {
+  background-image: repeating-linear-gradient(#f8b715, #fff 10%, #f8b715 20%);
+  right: -1em;
+  top: 6em;
+  height: 1.7em;
+  width: 7em;
+}
+
+/* Third input bubble - individual configuration */
+
+.pop-container__pop-3 {
+  border-radius: 44% 48% 37% 56% / 41% 34% 41% 38%;
+  height: 15em;
+  width: 14em;
+  box-shadow: 0px 10px #00ffcc;
+  left: 7em;
+}
+
+/* deploying grid to hold all 4 child elements */
+
+.pop-container__pop-3__grid {
+  display: grid;
+  grid-template-rows: repeat(4, 3em)
+  align-items: center;
+  grid-gap: 1em;
+}
+
+.pop-container__pop-bar-3 {
+  background-image: repeating-linear-gradient(-90deg, #f8b715, #f8b715 10%, #fff 20%);
+  position: absolute;
+  width: 2em;
+  height: 5em;
+  bottom: 0em;
+  left: 14em;
+}
+
+.pop-container:hover > .pop-container__pop-bar-3 {
+  background-image: repeating-linear-gradient(-90deg, #f8b715, #f8b715 10%, #00ffcc 20%);;
+}
+
+.pop-container__pop-3 input {
+  top: 0em;
+  justify-self: center;
+}
+
+/* flex used to center text content within div */
+
+.pop-container__pop-3__input {
+    border: solid #f8b715 2px;
+    border-radius: 5px;
+    height: 4em;
+    width: 14em;
+    font-size: 10px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.pop-container__pop-3__message {
+  display: flex;
+  justify-content: center;
+  grid-gap: 1em;
+}
+
+.pop-container__pop-3__message button{
+  top: 0em;
+}
+
+.pop-container__pop-3__message__id-input {
+  height: 2.5em;
+  width: 4em;
+  font-size: 10px;
+}
+
+.pop-container__pop-3:hover {
+  box-shadow: 0px 10px #5c5cc4;
+}
