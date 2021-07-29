@@ -159,9 +159,9 @@ async function updateUI () {
   let month = months[date.getMonth()];
   let year = 1900 + date.getYear();
 
-  myDate.textContent = `${weekday}, ${month} ${day}, ${year}`;
-  myTempMin.textContent = `Min: ${tempMin}°`;
-  myTempMax.textContent = `Max: ${tempMax}°`;
-  myCity.textContent = `Weather for ${city}`;
-  myContent.textContent = `Your comment: ${comment}`
+  myDate.innerHTML = `${weekday}, ${month} ${day}, ${year}`;
+  myTempMin.innerHTML = `Min: ${tempMin}°`;
+  myTempMax.innerHTML = `Max: ${tempMax}°`;
+  myCity.innerHTML = `Weather for ${city}`;
+  myContent.innerHTML = `Your comment: ${comment}`
 }
