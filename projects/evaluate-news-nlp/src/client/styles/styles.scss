@@ -1,0 +1,7 @@
+@import "global";
+@import "resets";
+@import "base";
+// I treat the "form" sheet as "modules" according to the SMACSS definition
+@import "form";
+@import "header";
+@import "footer";

@@ -1,0 +1,48 @@
+@import "global";
+
+// create variable for input border
+
+.description {
+  background-color: $primary-color;
+  color: #fff;
+  padding: 2em;
+}
+
+.input {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  grid-gap: 0.5em;
+  padding: 3em;
+}
+
+.enter-url {
+  // position: relative;
+  // bottom: 1em;
+  // right: 1em;
+}
+
+.enter-url__text {
+  text-align: left;
+  color: $gray-font;
+  width: 7em;
+}
+
+.enter-url__arrow {
+  width: 7em;
+  height: 5em;
+}
+
+#arrow-canvas {
+  height: inherit;
+  width: inherit;
+  position: relative;
+  z-index: 1;
+}
+
+#enter-url__form {
+  width: 90%;
+  height: 3em;
+  text-align: center;
+  border-color: $secondary-color
+}

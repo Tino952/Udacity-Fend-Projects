@@ -1,34 +1,24 @@
-/***********************************
+@import "global";
 
-Fonts
+h1 {
+  font-size: 36px;
+  font-family: $secondary-font;
+  padding: 1.5em 2em;
+}
 
-***********************************/
+section {
+  padding: $page-padding;
+}
 
-@import url("https://fonts.googleapis.com/css2?family=Source+Code+Pro&family=Varela+Round&display=swap");
+p {
+  line-height: $default-line-height;
+}
 
-$primary-font: "Varela Round", sans-serif;
-$secondary-font: "Source Code Pro", monospace;
+input {
+  outline: none;
+  border: 4px dashed;
+}
 
-$small-font: 12px;
-$medium-font: 14px;
-
-/***********************************
-
-Borders
-
-***********************************/
-
-
-$button-border-reset: 2px solid;
-$round-border: 7px;
-
-/***********************************
-
-Color schemes
-
-***********************************/
-
-
-$primary-color: #2bb5c4;
-$secondary-color: #3c9982;
-$tertiary-color: #a5a8b5;
+input:focus::placeholder {
+  color: transparent;
+}
