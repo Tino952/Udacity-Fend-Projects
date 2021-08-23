@@ -10,17 +10,15 @@
   height: 0.8em;
   bottom: 4.8em;
   left: 3.75em;
-  animation: highlight-slider 1s;
+  animation: highlight-slider 2s;
   animation-fill-mode: forwards;
 }
 
 @keyframes highlight-slider {
-  from {
-
+  60% {
     width: 0em;
   }
-  to {
-
+  100% {
     width: 15em;
   }
 }

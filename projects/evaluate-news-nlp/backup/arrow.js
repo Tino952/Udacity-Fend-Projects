@@ -60,8 +60,6 @@ function animate () {
 
   if (step == 30) {
 
-      step = 0;
-
       drawArrow();
 
   }
@@ -103,44 +101,63 @@ function drawCurvePath (c, startX, startY, endX, endY, controlX, controlY, step)
 
 }
 
+// setting an increment to determine curve speed of arrow
 
-// determine starting and ending location of arrow head
+let increment = 10;
+
+// determine starting location, curve increments and ending location
 
 let firstX = endX - arrowWidth * Math.sin(arrowAngle - Math.PI / 6);
 let firstY = endY - arrowWidth * Math.cos(arrowAngle - Math.PI / 6);
 
+// setting initial step increments for first part of the arrow, this will be
+// modified after reaching tip of arrow
+
+let stepX = (endX - firstX) / increment;
+let stepY = (endY - firstY) / increment;
+
 let lastX = endX - arrowWidth * Math.sin(arrowAngle + Math.PI / 6);
 let lastY = endY - arrowWidth * Math.cos(arrowAngle + Math.PI / 6);
 
-let stepLimit = false;
+// declaring our moving points to trace arrow head
 
-let increment = 10
+let movingPointX = firstX;
+
+let movingPointY = firstY;
+
+let i = 0;
 
 function drawArrow () {
 
-  // iterating to create first part of arrow head
+  if (movingPointY < endY) {
 
-  if (stepLimit == false && step < increment) {
+    arrowOne(movingPointX, movingPointY);
 
-    myArrow(step, firstX, firstY, endX, endY);
+    // steps will let movingPoints travel in a downwards-right direction towards
+    // the tip of the arrow
 
-  }
+    movingPointX += stepX;
 
-  // resetting step counter after 10 iterations
+    movingPointY += stepY;
 
-  if (step == increment && stepLimit == false) {
+    // if we have reached the tip of the arrow, we want to draw the second part
+    // But only for the length of the desired increment
 
-    step = 0;
+  } else if (movingPointY > endY && i < increment) {
 
-    stepLimit = true;
+    // changing steps to move from tip of arrow in a downwards-left direction
 
-  }
+    stepX = (endX - lastX) / increment;
 
-  // iterating to create second part of arrow head
+    stepY = (lastY - endY) / increment;
 
-  if (stepLimit == true && step < increment) {
+    arrowTwo(movingPointX, movingPointY);
 
-    myArrow(step, endX, endY, lastX, lastY);
+    movingPointX -= stepX;
+
+    movingPointY += stepY;
+
+    i ++
 
   }
 
@@ -148,33 +165,23 @@ function drawArrow () {
 
   requestAnimationFrame(drawArrow);
 
-  step ++
+}
+
+
+// declaring two functions to trace first and second part of arrow head
+
+function arrowOne (movingPointX, movingPointY) {
+
+  c.moveTo(firstX, firstY);
+
+  c.lineTo(movingPointX + stepX, movingPointY + stepY);
 
 }
 
-// creating a function to trace the arrow head
+function arrowTwo (movingPointX, movingPointY) {
 
-function myArrow (step, startX, startY, endX, endY) {
+  c.moveTo(endX, endY);
 
-  c.moveTo(startX, startY);
-
-  for (let t = 0; t <= step / 10; t += 0.01) {
-
-    let x = stepFunc(startX, endX, t);
-    let y = stepFunc(startY, endY, t);
-
-    c.lineTo(x, y);
-
-  }
-
-}
-
-function stepFunc(first, last, t) {
-
-  let diff = (last - first) * t;
-
-  let output = first + diff;
-
-  return output
+  c.lineTo(movingPointX - stepX, movingPointY + stepY);
 
 }
