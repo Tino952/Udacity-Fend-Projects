@@ -126,7 +126,7 @@ function drawArrow () {
 
   }
 
-  // resetting step counter after 10 iterations
+  // resetting step counter after first 10 iterations
 
   if (step == increment && stepLimit == false) {
 

@@ -10,6 +10,14 @@ section {
   padding: $page-padding;
 }
 
+@media only screen and (max-width: 400px) {
+
+  section {
+    padding: $small-page-padding;
+  }
+
+}
+
 p {
   line-height: $default-line-height;
 }

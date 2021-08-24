@@ -1,4 +1,17 @@
 footer {
   padding: $page-padding;
-  margin: auto 0;
+  height: 6em;
+  background-color: $secondary-color;
+  display: flex;
+  align-items: center;
+  color: $gray-font;
+}
+
+
+@media only screen and (max-width: 400px) {
+
+  footer {
+    padding: $small-page-padding;
+  }
+
 }

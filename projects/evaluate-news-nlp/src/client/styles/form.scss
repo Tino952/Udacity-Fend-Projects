@@ -1,6 +1,10 @@
 @import "global";
 
-// create variable for input border
+/***********************************
+
+Information bar in header
+
+***********************************/
 
 .description {
   background-color: $primary-color;
@@ -8,29 +12,43 @@
   padding: 2em;
 }
 
-.input {
+/***********************************
+
+URL input form
+
+***********************************/
+
+.url-input {
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
-  grid-gap: 0.5em;
-  padding: 3em;
+  padding: 0.5em 0em 4em 0em;
 }
 
-.enter-url {
-  // position: relative;
-  // bottom: 1em;
-  // right: 1em;
-}
-
-.enter-url__text {
+.url-input__sidebar__text {
   text-align: left;
   color: $gray-font;
   width: 7em;
+  padding-top: 4em;
 }
 
-.enter-url__arrow {
+.url-input__sidebar__arrow {
   width: 7em;
   height: 5em;
+  margin-top: -0.5em;
+}
+
+@media only screen and (max-width: 400px) {
+
+  .url-input__sidebar__text {
+    width: 5em;
+  }
+
+  .url-input__sidebar__arrow {
+    height: 4em;
+    width: 4em;
+  }
+
 }
 
 #arrow-canvas {
@@ -40,9 +58,92 @@
   z-index: 1;
 }
 
-#enter-url__form {
-  width: 90%;
+#url-input__form {
+  width: 65vw;
   height: 3em;
   text-align: center;
   border-color: $secondary-color
+}
+
+/***********************************
+
+Number of sentences form
+
+***********************************/
+
+.sentence-input {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  grid-gap: 1.5em;
+  padding: 3em 1em;
+}
+
+@media only screen and (max-width: 400px) {
+
+  .sentence-input {
+    padding: 4em 0em;
+  }
+
+}
+
+.sentence-input__sidebar {
+  display: flex;
+  align-items: center;
+  width: 8em;
+  height: 5em;
+  text-align: center;
+  color: $gray-font;
+}
+
+#sentence-input__form {
+  width: 7em;
+  height: 3em;
+  text-align: center;
+  border-color: $primary-color
+}
+
+.sentence-input__hide {
+  display: none;
+}
+
+/***********************************
+
+Output form
+
+***********************************/
+
+.output {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 90%;
+  margin: 2em auto;
+}
+
+.output__header {
+  color: #fff;
+  background-color: $tertiary-color;
+  height: 3em;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.output__box {
+  color: $gray-font;
+  border-width: 0px 4px 4px 4px;
+  border-style: dashed;
+  border-color: $tertiary-color;
+  min-height: 10.5em;
+  width: inherit;
+}
+
+.initial-line {
+  margin: 0;
+  height: 1.5em;
+  border: none;
+  border-bottom: 1px LightGray solid;
 }
