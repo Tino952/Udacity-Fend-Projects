@@ -18,21 +18,21 @@ URL input form
 
 ***********************************/
 
-.url-input {
+.url-input__container {
   display: flex;
   justify-content: flex-start;
   align-items: center;
   padding: 0.5em 0em 4em 0em;
 }
 
-.url-input__sidebar__text {
+.url-input__text {
   text-align: left;
   color: $gray-font;
   width: 7em;
   padding-top: 4em;
 }
 
-.url-input__sidebar__arrow {
+.url-input__arrow {
   width: 7em;
   height: 5em;
   margin-top: -0.5em;
@@ -40,11 +40,11 @@ URL input form
 
 @media only screen and (max-width: 400px) {
 
-  .url-input__sidebar__text {
+  .url-input__text {
     width: 5em;
   }
 
-  .url-input__sidebar__arrow {
+  .url-input__arrow {
     height: 4em;
     width: 4em;
   }
@@ -59,10 +59,18 @@ URL input form
 }
 
 #url-input__form {
-  width: 65vw;
+  width: 70vw;
   height: 3em;
   text-align: center;
   border-color: $secondary-color
+}
+
+@media only screen and (max-width: 400px) {
+
+  #url-input__form {
+    width: 60vw;
+  }
+
 }
 
 /***********************************
@@ -103,7 +111,9 @@ Number of sentences form
   border-color: $primary-color
 }
 
-.sentence-input__hide {
+// hide the input form
+
+.input__hide {
   display: none;
 }
 

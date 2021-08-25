@@ -9,6 +9,7 @@
   height: 0.8em;
   bottom: 4.8em;
   left: 3.75em;
+  width: 0em;
 }
 
 .highlight-animation {
@@ -29,4 +30,7 @@
   display: inline-block;
   height: 0.8em;
   width: 15em;
+  &:hover {
+    cursor: pointer;
+  }
 }
