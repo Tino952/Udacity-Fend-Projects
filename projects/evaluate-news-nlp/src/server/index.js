@@ -1,23 +1,41 @@
-var path = require('path')
-const express = require('express')
-const mockAPIResponse = require('./mockAPI.js')
+// what does path.resolve do?
+// do I need path?
 
-const app = express()
+// requiring dependencies
 
-app.use(express.static('dist'))
+const dotenv = require('dotenv');
+dotenv.config();
 
-console.log(__dirname)
+const path = require('path');
 
-app.get('/', function (req, res) {
-    // res.sendFile('dist/index.html')
-    res.sendFile(path.resolve('src/client/views/index.html'))
-})
+const express = require('express');
+// starting instance of express
+const app = express();
+app.use(express.static('dist'));
+
+// requiring restful functions
+const meaningCloud = require('./meaning_cloud_api.js')
+
+// calling middleware
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
+
+// checking if a port is available in the environment variable
+
+const port = process.env.PORT || 8080;
 
 // designates what port the app will listen to for incoming requests
-app.listen(8080, function () {
-    console.log('Example app listening on port 8080!')
+app.listen(port, function () {
+    console.log(`App listening on port ${port}!`)
 })
 
-app.get('/test', function (req, res) {
-    res.send(mockAPIResponse)
+// let abs = __dirname.slice(0,__dirname.search("src"));
+
+// receiving user input
+
+app.post('/sendData', function (req, res) {
+    const data = req.body;
+    console.log(data);
+    let myResponse =  "Data recieved by server";
+    res.send(JSON.stringify(myResponse));
 })

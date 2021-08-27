@@ -1,6 +1,9 @@
 // this canvas draws a curved line followed by an arrow head at the end of
 // that line
 
+// please note that this js file does not include a test witihn jest as there
+// is no user input- it is purely dedicated to designing a canvas element
+
 const canvas = document.getElementById("arrow-canvas");
 
 const c = canvas.getContext("2d");

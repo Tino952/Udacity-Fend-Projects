@@ -1,5 +1,3 @@
-// To do : make tests in validators as well as in canvas.js
-
 // importing styles
 
 import ".//styles/styles.scss"
@@ -12,6 +10,7 @@ import ".//js/arrow.js"
 
 import {validateUrl} from ".//js/validators.js"
 import {validateNum} from ".//js/validators.js"
+
 
 // Make header highlight bar responsive to mouse events
 
@@ -50,15 +49,21 @@ myUrl.addEventListener("keyup", (event) => {
 
         resolveUrl = validateUrl(myUrl.value)
 
+      } else {
+
+        alert("please enter a valid url");
+
+        return
+
       }
 
     }
 
-      document.querySelector(".url-input").classList.add("input__hide");
+    document.querySelector(".url-input").classList.add("input__hide");
 
-      document.querySelector(".sentence-input").classList.remove("input__hide");
+    document.querySelector(".sentence-input").classList.remove("input__hide");
 
-    }
+  }
 
 })
 
@@ -72,7 +77,7 @@ mySentences.addEventListener("keyup", (event) => {
 
     let mySentencesInput = document.querySelector("#sentence-input__form")
 
-    let myOutput;
+    let sentenceNum;
 
     if (mySentencesInput.value != "") {
 
@@ -80,20 +85,55 @@ mySentences.addEventListener("keyup", (event) => {
 
         if (resolveNum != false) {
 
-          myOutput = resolveNum;
+          sentenceNum = resolveNum;
+
+        } else {
+
+          alert("please enter a valid number");
+
+          return
 
         }
 
     } else {
 
-        myOutput = mySentencesInput.placeholder
+        sentenceNum = mySentencesInput.placeholder
 
     }
 
-    console.log(resolveUrl);
+    // send inputs to server and recieving response
 
-    console.log(myOutput);
+    let data = {
+
+      "url" : resolveUrl,
+      "num" : sentenceNum
+    }
+
+    console.log(data);
+
+    postIt("/sendData", data)
 
   }
 
 })
+
+// post request for sending user input to server
+
+async function postIt (url = "", data = {}) {
+  const response = await fetch(url, {
+  method: 'POST',
+  credentials: 'same-origin',
+  headers: {
+      'Content-Type': 'application/json',
+  },
+  body: JSON.stringify(data),
+});
+
+  try {
+    const newData = await response.json();
+    console.log(newData);
+    return newData;
+  } catch(err) {
+  console.log("error", err)
+}
+}

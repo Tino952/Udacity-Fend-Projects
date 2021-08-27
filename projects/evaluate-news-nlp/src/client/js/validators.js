@@ -13,8 +13,6 @@ function validateUrl(url) {
 
   if (testIt === false) {
 
-    alert("please enter a valid url");
-
     return false;
 
   }
@@ -34,9 +32,7 @@ function validateNum(num) {
   let testIt = regex.test(num);
 
   if (testIt === false) {
-
-    alert("please enter a valid number");
-
+    
     return false;
 
   }
