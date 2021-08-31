@@ -130,18 +130,6 @@ mySentences.addEventListener("keyup", (event) => {
 //////////////////////////////////////////////////////////////////////////
 
 
-// creating functionality to print text character by character in output box
-
-let sampleText = "Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC.";
-
-let textLength = sampleText.length;
-
-let speed = 10;
-
-let i = 0;
-
-let myText = document.querySelector("#output__box__text");
-
 // determines the number of lines to be added within the output box based on
 // the height of the output container
 
@@ -157,13 +145,12 @@ function genLines () {
   let myOutputHeight = myOutputDimensions.bottom - myOutputDimensions.top - paddingAndBorder;
 
   // in the future I could automatically extract lineHeight and default pixel size
-  // from style sheets
+  // from style sheets. Adding 1 to account for 1px border width
 
-  let lineHeight = 1.5 * 16
+  let lineHeight = (1.5 * 16)
 
-  let numberOfLines = Math.ceil(myOutputHeight / lineHeight) - 1 - 1
+  let numberOfLines = Math.round(myOutputHeight / lineHeight) - 1
 
-  // subtracting one because we already have first line in "output__box__line__1"
   // subtracting one more because we don't need a last line
 
   for (let i = 0; i < numberOfLines; i++) {
@@ -173,11 +160,11 @@ function genLines () {
     // of the output box equal to the number of lines needed, which is calculated
     // above
 
-    let myLine = document.querySelector(".output__box__line__2");
+    let myLine = document.querySelector(".output__box__line");
 
     let mySpan = document.createElement("SPAN");
 
-    mySpan.classList.add("output__box__line__2");
+    mySpan.classList.add("output__box__line");
 
     if (myLine == undefined) {
 
@@ -205,22 +192,38 @@ function genLines () {
 
 genLines();
 
-window.addEventListener("resize", ()=> {
+// creating a function to redraw lines on resize of output box
 
-  let myOutput = document.getElementById("output__box")
+let myOutput = document.getElementById("output__box")
+
+new ResizeObserver(myOutputResize).observe(myOutput);
+
+function myOutputResize () {
 
   while (myOutput.children.length > 1) {
 
     myOutput.removeChild(myOutput.lastElementChild)
 
     // clearing all myLine child elements from output box, only preserving
-    // the output__box__line__1 element and its child node
+    // the output__box__text element with the text
 
   }
 
   genLines()
 
-});
+};
+
+// creating functionality to print text character by character in output box
+
+let sampleText = "Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC. Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC. Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC.";
+
+let textLength = sampleText.length;
+
+let speed = 10;
+
+let i = 0;
+
+let myText = document.querySelector("#output__box__text");
 
 // function to type text into screen with slight delay between characters
 
