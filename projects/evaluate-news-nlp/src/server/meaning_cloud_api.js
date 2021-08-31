@@ -11,3 +11,6 @@ const getData = async (url = "") => {
         console.log(error)
     }
 }
+
+
+export { getData }

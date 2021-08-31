@@ -11,10 +11,8 @@ const path = require('path');
 const express = require('express');
 // starting instance of express
 const app = express();
+// running files located in dist folder on npm run start script
 app.use(express.static('dist'));
-
-// requiring restful functions
-const meaningCloud = require('./meaning_cloud_api.js')
 
 // calling middleware
 const bodyParser = require("body-parser");
@@ -31,11 +29,24 @@ app.listen(port, function () {
 
 // let abs = __dirname.slice(0,__dirname.search("src"));
 
-// receiving user input
+// receiving user input and sending the compiled url back to enable fetch
+// request
 
 app.post('/sendData', function (req, res) {
-    const data = req.body;
-    console.log(data);
-    let myResponse =  "Data recieved by server";
-    res.send(JSON.stringify(myResponse));
+  try {
+    const userData = req.body;
+    let finalUrl = compileUrl(userData.url, userData.num);
+    res.send(JSON.stringify(finalUrl));
+  } catch(error) {
+      console.log(error)
+  }
 })
+
+function compileUrl (url, num) {
+  let urlStart = "http://api.meaningcloud.com/summarization-1.0?";
+  let apiKey = process.env.API_KEY;
+  let myUrl = url;
+  let myNum = num;
+  let compiledUrl = `${urlStart}key=${apiKey}&url=${url}&sentences=${num}`;
+  return compiledUrl;
+}

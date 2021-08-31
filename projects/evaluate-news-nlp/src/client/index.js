@@ -6,11 +6,16 @@ import ".//styles/styles.scss"
 
 import ".//js/arrow.js"
 
-// import validators - remember to prefix with "Client" when calling function
+// importing validators
 
 import {validateUrl} from ".//js/validators.js"
 import {validateNum} from ".//js/validators.js"
 
+// importing http functions
+
+import {apiCall} from ".//js/meaning_cloud_api.js"
+
+//////////////////////////////////////////////////////////////////////////
 
 // Make header highlight bar responsive to mouse events
 
@@ -32,6 +37,8 @@ myHighlight.addEventListener("mousemove", () => {
   myHighlight.style.width = x - rect.left + "px";
 
 })
+
+//////////////////////////////////////////////////////////////////////////
 
 // create keyup event on url input form
 
@@ -101,7 +108,7 @@ mySentences.addEventListener("keyup", (event) => {
 
     }
 
-    // send inputs to server and recieving response
+    // send inputs to server and recieve compiled url as a response
 
     let data = {
 
@@ -109,31 +116,134 @@ mySentences.addEventListener("keyup", (event) => {
       "num" : sentenceNum
     }
 
-    console.log(data);
+    // call data from meaningcloud using the compiled url
 
-    postIt("/sendData", data)
+    let apiResponse = apiCall("/sendData", data).then(result => {
+      console.log(result);
+    })
 
   }
 
 })
 
-// post request for sending user input to server
 
-async function postIt (url = "", data = {}) {
-  const response = await fetch(url, {
-  method: 'POST',
-  credentials: 'same-origin',
-  headers: {
-      'Content-Type': 'application/json',
-  },
-  body: JSON.stringify(data),
+//////////////////////////////////////////////////////////////////////////
+
+
+// creating functionality to print text character by character in output box
+
+let sampleText = "Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC.";
+
+let textLength = sampleText.length;
+
+let speed = 10;
+
+let i = 0;
+
+let myText = document.querySelector("#output__box__text");
+
+// determines the number of lines to be added within the output box based on
+// the height of the output container
+
+function genLines () {
+
+  // first, we calculate the number of lines needed using the raw height of
+  // the output box and the line height
+
+  let myOutputDimensions = document.getElementById("output__box").getBoundingClientRect();
+
+  let paddingAndBorder = 3.2
+
+  let myOutputHeight = myOutputDimensions.bottom - myOutputDimensions.top - paddingAndBorder;
+
+  // in the future I could automatically extract lineHeight and default pixel size
+  // from style sheets
+
+  let lineHeight = 1.5 * 16
+
+  let numberOfLines = Math.ceil(myOutputHeight / lineHeight) - 1 - 1
+
+  // subtracting one because we already have first line in "output__box__line__1"
+  // subtracting one more because we don't need a last line
+
+  for (let i = 0; i < numberOfLines; i++) {
+
+    // in this loop we continually add a new child span element to the last
+    // child of myLine. In this way I am able to draw lines in the background
+    // of the output box equal to the number of lines needed, which is calculated
+    // above
+
+    let myLine = document.querySelector(".output__box__line__2");
+
+    let mySpan = document.createElement("SPAN");
+
+    mySpan.classList.add("output__box__line__2");
+
+    if (myLine == undefined) {
+
+      // creating first line
+
+      document.getElementById("output__box").appendChild(mySpan);
+
+      continue
+
+    }
+
+    // iterate to the last child element of the tree
+
+    while (myLine.children.length > 0) {
+
+      myLine = myLine.lastElementChild;
+
+    }
+
+    myLine.appendChild(mySpan)
+
+  }
+
+}
+
+genLines();
+
+window.addEventListener("resize", ()=> {
+
+  let myOutput = document.getElementById("output__box")
+
+  while (myOutput.children.length > 1) {
+
+    myOutput.removeChild(myOutput.lastElementChild)
+
+    // clearing all myLine child elements from output box, only preserving
+    // the output__box__line__1 element and its child node
+
+  }
+
+  genLines()
+
 });
 
-  try {
-    const newData = await response.json();
-    console.log(newData);
-    return newData;
-  } catch(err) {
-  console.log("error", err)
+// function to type text into screen with slight delay between characters
+
+function typewriter () {
+
+  if (i <= textLength) {
+
+    myText.textContent = "";
+
+    myText.textContent += sampleText.substring(0, i);
+
+    if (i !== textLength) {
+
+      myText.textContent += "_"
+
+    }
+
+    i ++
+
+    setTimeout(typewriter, speed)
+
+  }
+
 }
-}
+
+typewriter();
