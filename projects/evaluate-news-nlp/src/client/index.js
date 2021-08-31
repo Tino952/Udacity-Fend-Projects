@@ -19,7 +19,15 @@ import {apiCall} from ".//js/meaning_cloud_api.js"
 
 // Make header highlight bar responsive to mouse events
 
+// *****************************************************************************
+
+// Global variables for this section:
+
+// *****************************************************************************
+
 let myHighlight = document.querySelector("#highlight");
+
+// *****************************************************************************
 
 myHighlight.addEventListener("mousemove", () => {
 
@@ -42,9 +50,19 @@ myHighlight.addEventListener("mousemove", () => {
 
 // create keyup event on url input form
 
+// *****************************************************************************
+
+// Global variables for this section:
+
+// *****************************************************************************
+
 let myUrl = document.getElementById("url-input__form");
 
+// default url set in case user clicks enter without entering a url at all
+
 let resolveUrl = "https://en.wikipedia.org/wiki/Star_Trek";
+
+// *****************************************************************************
 
 myUrl.addEventListener("keyup", (event) => {
 
@@ -74,9 +92,28 @@ myUrl.addEventListener("keyup", (event) => {
 
 })
 
-// create enter click event on sentence input form
+//////////////////////////////////////////////////////////////////////////
+
+// create keyup event on sentence number input form
+// this event will trigger the following:
+
+// 1) api post to server with url and sentence number
+// 2) server returns compiled url including api key
+// 3) api get to meaningcloud using the compiled url
+// 4) meaningcloud returns the summary data
+// 5) typewriter function is executed to print the summary data in output box
+
+// *****************************************************************************
+
+// Global variables for this section:
+
+// *****************************************************************************
 
 let mySentences = document.querySelector(".sentence-input");
+
+let text = ""
+
+// *****************************************************************************
 
 mySentences.addEventListener("keyup", (event) => {
 
@@ -119,7 +156,11 @@ mySentences.addEventListener("keyup", (event) => {
     // call data from meaningcloud using the compiled url
 
     let apiResponse = apiCall("/sendData", data).then(result => {
-      console.log(result);
+
+      text = result;
+
+      typewriter();
+
     })
 
   }
@@ -157,8 +198,10 @@ function genLines () {
 
     // in this loop we continually add a new child span element to the last
     // child of myLine. In this way I am able to draw lines in the background
-    // of the output box equal to the number of lines needed, which is calculated
-    // above
+    // of the output box equal to the number of lines that fit into output box
+    // this mechanism only adds new lines if new spans are appended as children
+    // of previous span. This way, through absolute positioning based on previous
+    // span, we are able to get evenly spaced lines.
 
     let myLine = document.querySelector(".output__box__line");
 
@@ -192,9 +235,19 @@ function genLines () {
 
 genLines();
 
+//////////////////////////////////////////////////////////////////////////
+
 // creating a function to redraw lines on resize of output box
 
+// *****************************************************************************
+
+// Global variables for this section:
+
+// *****************************************************************************
+
 let myOutput = document.getElementById("output__box")
+
+// *****************************************************************************
 
 new ResizeObserver(myOutputResize).observe(myOutput);
 
@@ -213,29 +266,35 @@ function myOutputResize () {
 
 };
 
-// creating functionality to print text character by character in output box
-
-let sampleText = "Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC. Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC. Star Trek is an American science fiction entertainment franchise based on the television series created by Gene Roddenberry. The first television series, simply called Star Trek and now referred to as The Original Series, debuted in 1966 and aired for three seasons on the television network NBC.";
-
-let textLength = sampleText.length;
-
-let speed = 10;
-
-let i = 0;
-
-let myText = document.querySelector("#output__box__text");
+//////////////////////////////////////////////////////////////////////////
 
 // function to type text into screen with slight delay between characters
 
+// *****************************************************************************
+
+// Global variables for this section:
+
+// *****************************************************************************
+
+let myText = document.querySelector("#output__box__text");
+
+let speed = 30;
+
+let i = 0;
+
+// *****************************************************************************
+
 function typewriter () {
 
-  if (i <= textLength) {
+  let length = text.length;
+
+  if (i <= length) {
 
     myText.textContent = "";
 
-    myText.textContent += sampleText.substring(0, i);
+    myText.textContent += text.substring(0, i);
 
-    if (i !== textLength) {
+    if (i !== length) {
 
       myText.textContent += "_"
 
@@ -248,5 +307,3 @@ function typewriter () {
   }
 
 }
-
-typewriter();

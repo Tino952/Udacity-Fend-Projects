@@ -1,3 +1,10 @@
+//////////////////////////////////////////////////////////////////////////
+
+// post and get requests used to interact with server and
+// subsequently with the meaning cloud api
+
+//////////////////////////////////////////////////////////////////////////
+
 // post request for sending user input to server
 
 async function apiCall (url = "", data = {}) {
@@ -13,7 +20,7 @@ async function apiCall (url = "", data = {}) {
   try {
     // receiving the compiled url including the api key from the server
     const newData = await response.json();
-    // get request to api using compiled URL
+    // GET request to api using compiled URL
     let apiData = await getData(newData);
     // extracting summary data fro object
     let apiSummary = apiData.summary;
@@ -23,7 +30,10 @@ async function apiCall (url = "", data = {}) {
 }
 }
 
+//////////////////////////////////////////////////////////////////////////
+
 // plain vanilla http fetch request from meaningcloud api
+
 async function getData (url = "") {
 
     const request = await fetch(url)
@@ -36,5 +46,6 @@ async function getData (url = "") {
     }
 }
 
+//////////////////////////////////////////////////////////////////////////
 
 export { apiCall }
