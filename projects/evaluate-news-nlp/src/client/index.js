@@ -4,16 +4,16 @@ import ".//styles/styles.scss"
 
 // importing canvas files
 
-import ".//js/arrow.js"
+import ".//js_no_test/arrow.js"
 
 // importing validators
 
-import {validateUrl} from ".//js/validators.js"
-import {validateNum} from ".//js/validators.js"
+import {validateUrl} from ".//js/validateUrl.js"
+import {validateNum} from ".//js/validateNum.js"
 
 // importing http functions
 
-import {apiCall} from ".//js/meaning_cloud_api.js"
+import {apiCall} from ".//js_no_test/meaningCloudApi.js"
 
 //////////////////////////////////////////////////////////////////////////
 
