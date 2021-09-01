@@ -145,6 +145,8 @@ mySentences.addEventListener("keyup", (event) => {
 
     }
 
+    document.querySelector(".sentence-input").classList.add("input__hide");
+
     // send inputs to server and recieve compiled url as a response
 
     let data = {
