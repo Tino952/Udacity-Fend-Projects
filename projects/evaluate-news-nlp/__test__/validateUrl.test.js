@@ -1,4 +1,4 @@
-import {validateUrl} from "../src/client/js/validators.js"
+import {validateUrl} from "../src/client/js/validateUrl.js"
 
 
 describe("Testing the validate url functionality", () => {
@@ -10,5 +10,5 @@ describe("Testing the validate url functionality", () => {
           // this should return false as there is not at least one dot in the url
 
            expect(validateUrl(url)).toEqual(false);
-           
+
 })});

@@ -190,7 +190,7 @@ function genLines () {
 
   let lineHeight = (1.5 * 16)
 
-  let numberOfLines = Math.round(myOutputHeight / lineHeight) - 1
+  let numberOfLines = Math.ceil(myOutputHeight / lineHeight) - 1
 
   // subtracting one more because we don't need a last line
 

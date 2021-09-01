@@ -1,4 +1,4 @@
-import {validateNum} from "../src/client/js/validators.js"
+import {validateNum} from "../src/client/js/validateNum.js"
 
 
 describe("Testing the validate number functionality", () => {
