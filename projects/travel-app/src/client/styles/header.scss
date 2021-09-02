@@ -1,0 +1,36 @@
+@import "global";
+
+.highlight {
+  display: inline-block;
+  background-color: $secondary-color;
+  opacity: 0.4;
+  position: relative;
+  z-index: 1;
+  height: 0.8em;
+  bottom: 4.8em;
+  left: 3.75em;
+  width: 0em;
+}
+
+.highlight-animation {
+  animation: highlight-slider 2s;
+  animation-fill-mode: forwards;
+}
+
+@keyframes highlight-slider {
+  40% {
+    width: 0em;
+  }
+  100% {
+    width: 15em;
+  }
+}
+
+.highlight-helper {
+  display: inline-block;
+  height: 0.8em;
+  width: 15em;
+  &:hover {
+    cursor: pointer;
+  }
+}

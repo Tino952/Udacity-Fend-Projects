@@ -1,0 +1,32 @@
+@import "global";
+
+h1 {
+  font-size: 36px;
+  font-family: $secondary-font;
+  padding: 1.5em 2em;
+}
+
+section {
+  padding: $page-padding;
+}
+
+@media only screen and (max-width: 400px) {
+
+  section {
+    padding: $small-page-padding;
+  }
+
+}
+
+p {
+  line-height: $default-line-height;
+}
+
+input {
+  outline: none;
+  border: 4px dashed;
+}
+
+input:focus::placeholder {
+  color: transparent;
+}
