@@ -1,1 +1,57 @@
-// main file added to fulfill rubric criteria
+@import "global";
+
+// input modules
+
+.input__container {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0.25em;
+  width: 100%;
+}
+
+.input__head {
+  text-align: center;
+}
+
+// output modules
+
+#city-photo {
+  border: 2px solid red;
+  margin: 1em;
+}
+
+.output__main__container {
+  padding: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  text-align: center;
+  grid-gap: 1em;
+}
+
+@media only screen and (min-width: 420px) {
+
+  .output__main__container {
+    padding-left: 2em;
+  }
+
+}
+
+.output__main__head__container {
+  display: flex;
+  text-align: center;
+}
+
+#output__main__head__content {
+  width: 100%;
+  line-height: $default-lh;
+  font-size: $large-font;
+  text-align: left;
+}
+
+#output__main__weather__entry {
+  padding: 0.2em 0;
+  font-size: $small-font;
+  line-height: $default-lh;
+}

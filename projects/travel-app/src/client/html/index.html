@@ -3,53 +3,50 @@
 <head>
   <meta charset="UTF-8">
   <meta content="width=device-width, initial-scale=1, maximum-scale=1" name="viewport"/>
-  <meta name="references" content="Funcionality based on Meaning Cloud API">
-  <title>SummarizeMe</title>
+  <meta name="references" content="Plugging into Geobit, Weatherbit and Pixabay APIs">
+  <title>Travel App</title>
 </head>
 <body>
+  <header>
+    <h1>
+      Travel App
+    </h1>
+  </header>
   <main>
-    <header>
-      <h1>
-        SummarizeMe
-      </h1>
-      <span id="highlight" class="highlight highlight-animation">
-        <!-- highlight helper is used to keep highlight dimensions to allow highlight
-      bar to grow with mouse move and not only shrink -->
-        <span class="highlight-helper">
+    <section class="input">
+      <div class="input__container">
+        <div class="input__head">
+          Enter Destination
+        </div>
+        <input type="text" name="enter destination here" placeholder="Paris" id="city-input__form">
+      </div>
+      <div class="input__container">
+        <div class="input__head">
+          Enter Departure Date
+        </div>
+        <input type="text" name="enter date here" placeholder="02/12/21" id="date-input__form">
+      </div>
+      <button type="button" name="save trip">Go!</button>
+    </section>
+    <section class="output">
+      <div id="city-photo">
+      </div>
+      <div class="output__main__container">
+        <span class="output__main__head__container">
+          <span id="output__main__head__content" >My Trip to Paris, France<br>Departing 02/12/21</span>
         </span>
-      </span>
-    </header>
-    <section class="description">
-      <p>
-        The purpose of this website is to provide a short summary of any online article or text. Choose the source url as well the desired length of the sentence. The Meaning Cloud API takes care of the magic.
-      </p>
-    </section>
-    <section>
-      <div class="url-input">
-        <div class="url-input__text">
-          Enter URL
-        </div>
-        <div class="url-input__container">
-            <div class="url-input__arrow">
-              <canvas id="arrow-canvas"></canvas>
+        <span class="output__main__buttons">
+          <button type="button" name="save trip">Save Trip</button>
+          <button type="button" name="remove trip">Remove Trip</button>
+        </span>
+        <span id="output__main__days">Paris, France is 220 days away</span>
+        <div class="output__main__weather__container">
+          <div class="output__main__weather__title">
+            Typical weather for then is:
           </div>
-          <input type="text" name="paste url here" placeholder="add url here" id="url-input__form">
-        </div>
-      </div>
-      <div class="sentence-input input__hide">
-        <div class="sentence-input__sidebar">
-            How many sentences would you like?
-        </div>
-        <input type="text" name="sentence number input" placeholder="5" id="sentence-input__form">
-      </div>
-    </section>
-    <section>
-      <div class="output">
-        <div class="output__header">
-          Your Summary
-        </div>
-        <div id="output__box">
-          <span id="output__box__text" ></span>
+          <div id="output__main__weather__entry">
+            High - 46
+          </div>
         </div>
       </div>
     </section>
@@ -59,7 +56,7 @@
       &copy Tino
     </p>
   </footer>
-  <script>
+  <!-- <script>
  // Check that service workers are supported
  if ('serviceWorker' in navigator) {
      // Use the window load event to keep the page load performant
@@ -67,6 +64,6 @@
          navigator.serviceWorker.register('/service-worker.js');
      });
  }
-  </script>
+  </script> -->
 </body>
 </html>

@@ -3,30 +3,37 @@
 h1 {
   font-size: 36px;
   font-family: $secondary-font;
-  padding: 1.5em 2em;
-}
-
-section {
-  padding: $page-padding;
-}
-
-@media only screen and (max-width: 400px) {
-
-  section {
-    padding: $small-page-padding;
-  }
-
-}
-
-p {
-  line-height: $default-line-height;
 }
 
 input {
+  text-align: center;
   outline: none;
-  border: 4px dashed;
+  border: 2px solid;
 }
 
 input:focus::placeholder {
   color: transparent;
+}
+
+button {
+  height: 3em;
+  width: 7.5em;
+  background-color: $tertiary-color;
+  color: $secondary-font-color;
+  border: 2px solid #fff;
+  border-radius: 7px;
+  cursor: pointer;
+  &:focus {
+    background-color: $secondary-color;
+  }
+}
+
+@media (pointer: fine) {
+
+  button {
+    &:hover {
+      transform: $primary-scale;
+      transition: transform 0.3s;
+    }
+  }
 }

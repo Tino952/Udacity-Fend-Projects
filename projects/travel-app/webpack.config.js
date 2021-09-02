@@ -8,7 +8,7 @@ const { merge } = require("webpack-merge");
 
 
 const commonConfig = {
-  entry: './client/index.js',
+  entry: './src/client/index.js',
   module: {
       rules: [
           {
@@ -29,7 +29,7 @@ const commonConfig = {
     },
     plugins: [
         new HtmlWebPackPlugin({
-            template: "./client/index.html",
+            template: "./src/client/html/index.html",
             filename: "./index.html",
         }),
         new MiniCssExtractPlugin({
