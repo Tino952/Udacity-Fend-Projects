@@ -18,13 +18,13 @@
         <div class="input__head">
           Enter Destination
         </div>
-        <input type="text" name="enter destination here" placeholder="Paris" id="city-input__form">
+        <input type="text" name="enter destination here" placeholder="Paris, France" id="city-input__form">
       </div>
       <div class="input__container">
         <div class="input__head">
           Enter Departure Date
         </div>
-        <input type="date" name="enter date here" id="date-input__form" min="02/09/21" max="02/12/22">
+        <input type="date" name="enter date here" id="date-input__form" value="" min="2021-09-02" max="2021-12-31">
       </div>
       <button type="button" name="save trip" id="input-go">Go!</button>
     </section>
@@ -33,19 +33,18 @@
       </div>
       <div class="output__main__container">
         <span class="output__main__head__container">
-          <span id="output__main__head__content" >My Trip to Paris, France<br>Departing 02/12/21</span>
+          <span id="output__main__head__content" ></span>
         </span>
         <span class="output__main__buttons">
           <button type="button" name="save trip">Save Trip</button>
           <button type="button" name="remove trip">Remove Trip</button>
         </span>
-        <span id="output__main__days">Paris, France is 220 days away</span>
+        <span id="output__main__days"></span>
         <div class="output__main__weather__container">
           <div class="output__main__weather__title">
             Typical weather for then is:
           </div>
           <div id="output__main__weather__entry">
-            High - 46
           </div>
         </div>
       </div>

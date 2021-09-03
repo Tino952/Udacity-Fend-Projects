@@ -6,34 +6,94 @@ import ".//styles/styles.scss"
 
 import {validateDestination} from ".//js/validateDestination.js"
 
+// import placeholder for page init
+
+import {myObj} from ".//js/app.js"
+
+// initialize page
+
+(() => {
+
+  let initDate = myObj.date
+
+  let initDest = myObj.dest
+
+  document.getElementById("date-input__form").value = initDate;
+
+  document.getElementById("city-input__form").value = initDest;
+
+  submit();
+
+})()
+
 // getting destination and date inputs from user
 
 let myInputButton = document.getElementById("input-go");
 
 myInputButton.addEventListener("click", (event) => {
 
-    event.preventDefault();
+    submit();
 
-    let myDestination = document.getElementById("city-input__form");
+})
 
-    let myDestinationValue = myDestination.placeholder;
+// function to run on user input and clicking on "go" button
 
-    if (myDestination.value != "") {
+function submit () {
 
-      if (validateDestination(myDestination.value) != false) {
+let myDateValue = document.getElementById("date-input__form").value;
 
-        myDestinationValue = validateDestination(myDestination.value)
+let myDestination = document.getElementById("city-input__form");
 
-      } else {
+let myDestinationValue = myDestination.placeholder;
 
-        alert("please enter a valid destination");
+if (myDestination.value != "") {
 
-        return
+  if (validateDestination(myDestination.value) != false) {
 
-      }
+    myDestinationValue = validateDestination(myDestination.value)
 
-      console.log(myDestinationValue);
+  } else {
+
+    alert("please enter a valid destination");
+
+    return
 
   }
 
-})
+}
+
+updateOutput(myDestinationValue, myDateValue);
+
+updateWeather()
+
+}
+
+function updateOutput(dest, date) {
+
+  let myOutputHead = document.getElementById("output__main__head__content");
+
+  let dateArray = date.split("-");
+
+  let myCompiledDate = dateArray.reduceRight((curr, next) => curr + "/" + next);
+
+  myOutputHead.innerHTML = `My Trip to ${dest}<br>Departing ${myCompiledDate}`;
+
+  let myDays = document.getElementById("output__main__days");
+
+  let todayDate = new Date();
+
+  let futureDate = new Date(date)
+
+  let difference = Math.ceil((futureDate - todayDate) / (1000 * 60 * 60 * 24));
+
+  myDays.innerHTML = `${dest} is ${difference} days away`;
+
+}
+
+function updateWeather () {
+
+  let myWeather = document.getElementById("output__main__weather__entry");
+
+  myWeather.textContent = "High - 46"
+
+}

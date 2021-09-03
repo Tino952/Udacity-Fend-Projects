@@ -20,6 +20,11 @@
   margin: 1em;
 }
 
+.output__main__buttons {
+  display: flex;
+  grid-gap: 1em;
+}
+
 .output__main__container {
   padding: 1em;
   display: flex;
