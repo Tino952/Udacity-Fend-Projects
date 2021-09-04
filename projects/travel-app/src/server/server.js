@@ -1,12 +1,8 @@
-// what does path.resolve do?
-// do I need path?
-
 // requiring dependencies
 
 const dotenv = require('dotenv');
-dotenv.config();
 
-const path = require('path');
+dotenv.config();
 
 const express = require('express');
 // starting instance of express
@@ -17,6 +13,7 @@ app.use(express.static('dist'));
 // calling middleware
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
+app.use(bodyParser.text())
 
 // checking if a port is available in the environment variable
 
@@ -27,26 +24,25 @@ app.listen(port, function () {
     console.log(`App listening on port ${port}!`)
 })
 
-// let abs = __dirname.slice(0,__dirname.search("src"));
+// object with api keys
 
-// receiving user input and sending the compiled url back to enable fetch
-// request
+const myKeys = {
+  "geonames": process.env.geonames_key
+}
 
-app.post('/sendData', function (req, res) {
+console.log(myKeys);
+
+// post request to send api key to client
+
+app.post("/apiKey", sendKey);
+
+function sendKey (req, res) {
   try {
-    const userData = req.body;
-    let finalUrl = compileUrl(userData.url, userData.num);
-    res.send(JSON.stringify(finalUrl));
+    let api = req.body;
+    console.log(api);
+    let key = JSON.stringify(myKeys.geonames);
+    res.send(key);
   } catch(error) {
       console.log(error)
   }
-})
-
-function compileUrl (url, num) {
-  let urlStart = "https://api.meaningcloud.com/summarization-1.0?";
-  let apiKey = process.env.API_KEY;
-  let myUrl = url;
-  let myNum = num;
-  let compiledUrl = `${urlStart}key=${apiKey}&url=${url}&sentences=${num}`;
-  return compiledUrl;
 }

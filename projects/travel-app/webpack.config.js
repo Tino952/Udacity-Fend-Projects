@@ -22,20 +22,20 @@ const commonConfig = {
           }
       ]
   },
-    optimization: {
-      minimizer: [
-        new TerserPlugin(),new CssMinimizerPlugin()
-      ],
+  optimization: {
+    minimizer: [
+      new TerserPlugin(),new CssMinimizerPlugin()
+    ],
     },
-    plugins: [
-        new HtmlWebPackPlugin({
-            template: "./src/client/html/index.html",
-            filename: "./index.html",
-        }),
-        new MiniCssExtractPlugin({
-            filename: "[name].css"
-        })
-    ]
+  plugins: [
+      new HtmlWebPackPlugin({
+          template: "./src/client/html/index.html",
+          filename: "./index.html",
+      }),
+      new MiniCssExtractPlugin({
+          filename: "[name].css"
+      })
+  ]
   };
 
 const prodConfig = {

@@ -10,6 +10,10 @@ import {validateDestination} from ".//js/validateDestination.js"
 
 import {myObj} from ".//js/app.js"
 
+// import functions to run HTTP requests
+
+import {asyncStack} from ".//js/app.js"
+
 // initialize page
 
 (() => {
@@ -40,35 +44,35 @@ myInputButton.addEventListener("click", (event) => {
 
 function submit () {
 
-let myDateValue = document.getElementById("date-input__form").value;
+  let myDateValue = document.getElementById("date-input__form").value;
 
-let myDestination = document.getElementById("city-input__form");
+  let myDestination = document.getElementById("city-input__form");
 
-let myDestinationValue = myDestination.placeholder;
+  let myDestinationValue = myDestination.placeholder;
 
-if (myDestination.value != "") {
+  if (myDestination.value != "") {
 
-  if (validateDestination(myDestination.value) != false) {
+    if (validateDestination(myDestination.value) != false) {
 
-    myDestinationValue = validateDestination(myDestination.value)
+      myDestinationValue = validateDestination(myDestination.value)
 
-  } else {
+    } else {
 
-    alert("please enter a valid destination");
+      alert("please enter a valid destination");
 
-    return
+      return
+
+    }
 
   }
 
-}
+  updateUi(myDestinationValue, myDateValue);
 
-updateOutput(myDestinationValue, myDateValue);
-
-updateWeather()
+  asyncStack(myDestinationValue);
 
 }
 
-function updateOutput(dest, date) {
+function updateUi(dest, date) {
 
   let myOutputHead = document.getElementById("output__main__head__content");
 
@@ -87,6 +91,8 @@ function updateOutput(dest, date) {
   let difference = Math.ceil((futureDate - todayDate) / (1000 * 60 * 60 * 24));
 
   myDays.innerHTML = `${dest} is ${difference} days away`;
+
+  updateWeather()
 
 }
 
