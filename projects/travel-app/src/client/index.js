@@ -60,29 +60,13 @@ myInputButton.addEventListener("click", submit);
 
 function submit (event) {
 
-  let myDateValue = document.getElementById("date-input__form").value;
+  let myDate = document.getElementById("date-input__form").value;
 
-  let myDestination = document.getElementById("city-input__sel");
+  let myDestination = document.getElementById("city-input__sel").value;
 
-  if (myDestination.value != "") {
+  updateUi(myDestination, myDate);
 
-    if (validateDestination(myDestination.value) != false) {
-
-      let myDestinationValue = validateDestination(myDestination.value)
-
-      updateUi(myDestinationValue, myDateValue);
-
-      asyncStack(myDestinationValue);
-
-    } else {
-
-      alert("please enter a valid destination");
-
-      return
-
-    }
-
-  }
+  asyncStack(myDestination);
 
 }
 
