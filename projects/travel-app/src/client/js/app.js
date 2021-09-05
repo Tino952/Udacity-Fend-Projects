@@ -91,6 +91,7 @@ async function asyncStack (inp) {
   let compiledUrl = `${urlStart}placename=${placename}&country=${country}&maxRows=10&username=${apiKey}`
   let myData = await geonamesCall(compiledUrl)
   console.log(myData);
+  // next get user to select which one, my making drop-down list on type 
 }
 
 export {asyncStack};

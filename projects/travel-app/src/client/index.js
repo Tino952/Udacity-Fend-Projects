@@ -24,37 +24,55 @@ import {asyncStack} from ".//js/app.js"
 
   document.getElementById("date-input__form").value = initDate;
 
-  document.getElementById("city-input__form").value = initDest;
+  updateList(initDest);
+
+  let myDestSel = document.getElementById("city-input__sel");
+
+  let myDestList = document.getElementById("city-input__list");
+
+  myDestSel.val = myDestList.firstChild.value;
 
   submit();
 
 })()
 
+// function to update datalist
+
+function updateList (inp) {
+
+  let myDataList = document.getElementById("city-input__list");
+
+  let myListElem = document.createElement("option");
+
+  myListElem.value = inp.toString();
+
+  myDataList.appendChild(myListElem);
+
+}
+
 // getting destination and date inputs from user
 
 let myInputButton = document.getElementById("input-go");
 
-myInputButton.addEventListener("click", (event) => {
-
-    submit();
-
-})
+myInputButton.addEventListener("click", submit);
 
 // function to run on user input and clicking on "go" button
 
-function submit () {
+function submit (event) {
 
   let myDateValue = document.getElementById("date-input__form").value;
 
-  let myDestination = document.getElementById("city-input__form");
-
-  let myDestinationValue = myDestination.placeholder;
+  let myDestination = document.getElementById("city-input__sel");
 
   if (myDestination.value != "") {
 
     if (validateDestination(myDestination.value) != false) {
 
-      myDestinationValue = validateDestination(myDestination.value)
+      let myDestinationValue = validateDestination(myDestination.value)
+
+      updateUi(myDestinationValue, myDateValue);
+
+      asyncStack(myDestinationValue);
 
     } else {
 
@@ -65,10 +83,6 @@ function submit () {
     }
 
   }
-
-  updateUi(myDestinationValue, myDateValue);
-
-  asyncStack(myDestinationValue);
 
 }
 
