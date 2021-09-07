@@ -13,13 +13,14 @@ main {
   flex-direction: column;
   grid-gap: 0.75em;
   align-items: center;
-  margin: 0 auto;
+  margin-top: $mobile-margin-top
 }
 
 @media only screen and (min-width: 420px) {
 
   .input {
     margin: $web-padding;
+    margin-top: $web-margin-top
   }
 
 }
@@ -27,13 +28,13 @@ main {
 // output layout section
 
 .output {
-  margin: 4em 0;
   padding: $mobile-padding;
   padding-top: 2em;
   padding-bottom: 2em;
   background-color: $primary-color;
   display: grid;
   grid-template-rows: 1fr 1fr;
+  margin-top: $mobile-margin-top;
 }
 
 @media only screen and (min-width: 420px) {
@@ -43,6 +44,7 @@ main {
     grid-template-rows: 100%;
     grid-template-columns: 1fr 1fr;
     height: 20em;
+    margin-top: $web-margin-top;
   }
 
 }

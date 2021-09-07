@@ -1,17 +1,19 @@
 footer {
   height: 6em;
-  padding: $web-padding;
+  padding: $mobile-padding;
   background-color: $secondary-color;
   display: flex;
   align-items: center;
   color: $secondary-font-color;
+  margin-top: $mobile-margin-top
 }
 
 
-@media only screen and (max-width: 420px) {
+@media only screen and (min-width: 420px) {
 
   footer {
-    padding: $mobile-padding;
+    padding: $web-padding;
+    margin-top: $web-margin-top
   }
 
 }
