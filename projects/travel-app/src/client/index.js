@@ -22,7 +22,11 @@ import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
   let initDest = myObj.dest
 
-  document.getElementById("date-input__form").value = initDate;
+  let myDate = document.getElementById("date-input__form");
+
+  myDate.value = initDate;
+
+  myDate.addEventListener("change", checkRemove);
 
   let myDestInp = document.getElementById("city-input__sel");
 
@@ -45,9 +49,9 @@ import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
   saveTrip.addEventListener("click", storeIt);
 
-  let removeTrip = document.getElementById("remove-trip");
+  // do not allow user to remove a trip without saving one first
 
-  saveTrip.addEventListener("click", removeIt);
+  checkRemove();
 
   go();
 
@@ -80,9 +84,6 @@ function updateUiList (name, coordinates) {
     let saveTrip = document.getElementById("save-trip");
     saveTrip.addEventListener("click", storeIt);
     saveTrip.classList.remove("prevent-click");
-    let removeTrip = document.getElementById("remove-trip");
-    removeTrip.addEventListener("click", removeIt);
-    removeTrip.classList.remove("prevent-click");
   }))
 
   myDestList.appendChild(myListElem);
@@ -114,9 +115,8 @@ async function genList (event) {
   let saveTrip = document.getElementById("save-trip");
   saveTrip.removeEventListener("click", storeIt);
   saveTrip.classList.add("prevent-click");
-  let removeTrip = document.getElementById("remove-trip");
-  removeTrip.removeEventListener("click", removeIt);
-  removeTrip.classList.add("prevent-click");
+
+  checkRemove();
 
   if (myList !== undefined) {
 
@@ -157,6 +157,8 @@ function go (event) {
   let myDestInp = document.getElementById("city-input__sel").value
 
   let name = myDestInp.split(",")[0].trim();
+
+  checkRemove();
 
   updateUi(name, date);
 
@@ -213,35 +215,61 @@ async function updatePhoto (name) {
 
 }
 
-let tripnum = 1;
-
 function storeIt () {
   let myDate = document.getElementById("date-input__form").value
   let myDest = document.getElementById("city-input__sel").value;
   let myTrips = document.getElementById("saved-trips");
   let myTripElem = document.createElement("li");
+  myTripElem.setAttribute("id", myDate+myDest);
   myTripElem.classList.add("plane");
   let myTripLink = document.createElement("a");
+  myTripLink.classList.add("trip-element__link");
   let myDestSimple = myDest.split(",")[0].trim()
-  myTripLink.textContent = myDestSimple
+  let dateArray = myDate.split("-");
+  let myCompiledDate = dateArray.reduceRight((curr, next) => curr + "/" + next);
+  myTripLink.textContent = myDestSimple + ", " + myCompiledDate;
   myTripElem.appendChild(myTripLink);
   myTrips.appendChild(myTripElem);
-  let myTripObj = {};
-  myTripObj.destination = myDestSimple;
-  myTripObj.date = myDate;
-  // trip information: city key, date value
-  localStorage.setItem(tripnum, JSON.stringify(myTripObj));
-  console.log(localStorage);
-  myTripLink.addEventListener("click", retrieveTrip(myDestSimple));
-  tripnum ++;
+  // setting unique local storate key based on dest and date for case that user
+  // saves multiple dates for the same destination
+  let localStorageKey = myDest + ":" + myDate
+  localStorage.setItem(localStorageKey, myDate);
+  myTripLink.addEventListener("click", ()=> {retrieveTrip(localStorageKey)});
+  checkRemove();
 }
 
-function retrieveTrip (name) {
-  let myTripObj = localStorage.getItem(name);
-  console.log(myTripObj.destination);
-  console.log(myTripObj.date);
+function retrieveTrip (key) {
+  let dest = key.split(":")[0].trim()
+  let date = localStorage.getItem(key);
+  console.log(localStorage);
+  console.log(dest);
+  document.getElementById("date-input__form").value = date
+  document.getElementById("city-input__sel").value = dest
+  go();
+}
+
+function checkRemove () {
+  let myDest = document.getElementById("city-input__sel").value;
+  let myDate = document.getElementById("date-input__form").value;
+  let myId = myDate+myDest;
+  let myTripElem = document.getElementById(myId);
+  // if element is in list of saved trips, then enable remove button
+  let removeTrip = document.getElementById("remove-trip");
+  if (myTripElem) {
+    removeTrip.classList.remove("prevent-click");
+    removeTrip.addEventListener("click", removeIt);
+  } else {
+    removeTrip.classList.add("prevent-click");
+    removeTrip.removeEventListener("click", removeIt);
+  }
 }
 
 function removeIt () {
-  return
+  let myDest = document.getElementById("city-input__sel").value;
+  let myDate = document.getElementById("date-input__form").value;
+  localStorage.removeItem(myDest);
+  let myId = myDate+myDest;
+  let myTripElem = document.getElementById(myId);
+  myTripElem.parentElement.removeChild(myTripElem);
+  checkRemove()
 }

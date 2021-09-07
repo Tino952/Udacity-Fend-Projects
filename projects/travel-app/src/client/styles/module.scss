@@ -37,20 +37,28 @@
 // saved trips
 
 #saved-trips {
-  display: grid;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   grid-gap: 0.5em;
   width: 100%;
 }
 
 .plane {
   max-height: 2em;
-  max-width: 2em;
   background-image: url("../assets/airplane.png");
   background-repeat: no-repeat;
-  background-position: center;
-  padding-left: 2.5em;
+  background-position: left;
   background-size: contain;
+}
 
+.trip-element__link {
+  padding-left: 2em;
+  display: block;
+  cursor: pointer;
+  text-decoration: underline;
+  position: relative;
+  z-index: 1;
 }
 
 // output modules
