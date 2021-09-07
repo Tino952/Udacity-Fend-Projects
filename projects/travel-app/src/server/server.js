@@ -28,7 +28,8 @@ app.listen(port, function () {
 
 const myKeys = {
   "geonames": process.env.geonames,
-  "weatherbit" : process.env.weatherbit
+  "weatherbit" : process.env.weatherbit,
+  "pixabay" : process.env.pixabay
 }
 
 // post request to send api key to client

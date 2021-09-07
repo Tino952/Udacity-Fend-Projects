@@ -29,6 +29,8 @@ main {
 .output {
   margin: 4em 0;
   padding: $mobile-padding;
+  padding-top: 2em;
+  padding-bottom: 2em;
   background-color: $primary-color;
   display: grid;
   grid-template-rows: 1fr 1fr;

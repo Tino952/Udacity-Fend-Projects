@@ -100,7 +100,8 @@ async function getGeonames (inp) {
   return myDataArr;
 }
 
-// compiling url based on lat and lon of selected input destination
+// compiling url based on lat and lon of selected input destination and/
+// retrieving weather data from weatherbit api
 
 async function getWeatherbit (lat, lng, days) {
   let urlStart = "https://api.weatherbit.io/v2.0/forecast/daily?"
@@ -115,4 +116,27 @@ async function getWeatherbit (lat, lng, days) {
   return myWeather;
 }
 
-export {getGeonames, getWeatherbit};
+// compiling url based on simple name of destination and retrieving
+// one of 10 randomly selected corresponding stock photos from pixabay api
+
+async function getPixabay (dest) {
+  let urlStart = "https://pixabay.com/api/?"
+  let apiKey = await getKeys("/apiKey", "pixabay");
+  let compiledUrl = `${urlStart}key=${apiKey}&q=${dest}&image_type=photo&per_page=10`
+  let defaultUrl = "https://pixabay.com/api/?key=23272715-5e0b198733e5e936a24b025e5&q=city&image_type=photo&per_page=10"
+  let myData = await getData(compiledUrl)
+  let myDataLength = myData.hits.length
+  let randPhoto = Math.floor(Math.random()*myDataLength);
+  let myUrl = ""
+  if (myData.hits.length > 0) {
+    myUrl = myData.hits[randPhoto].webformatURL;
+  } else {
+    // if the city destination returns no photos, then
+    // return one of first 10 photos from pixabay search of "city"
+    randPhoto = Math.floor(Math.random()*10);
+    myUrl = getData(defaultUrl).then((result) => result.hits[randPhoto].webformatURL)
+}
+  return myUrl;
+}
+
+export {getGeonames, getWeatherbit, getPixabay};

@@ -12,7 +12,7 @@ import {myObj} from ".//js/app.js"
 
 // import functions to run HTTP requests
 
-import {getGeonames, getWeatherbit} from ".//js/app.js"
+import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
 // initialize page with data from placeholder object exported from app.js
 
@@ -187,8 +187,10 @@ async function updateWeather (days) {
 
 }
 
-function updatePhoto (name) {
+async function updatePhoto (name) {
 
-  return;
+  let myUrl = await getPixabay(name);
+
+  document.getElementById("city-photo").style.backgroundImage=`url(${myUrl})`;
 
 }

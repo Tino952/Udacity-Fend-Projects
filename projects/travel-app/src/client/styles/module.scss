@@ -32,16 +32,27 @@
 .prevent-go {
   background-color: grey;
   pointer-events: none;
-  &:focus {
-    background-color: grey;
-  }
 }
 
 // output modules
 
 #city-photo {
-  border: 2px solid red;
   margin: 1em;
+  background-position: center;
+  background-size: cover;
+  color: #fff;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+}
+
+.pixabay {
+  margin: 0.5em;
+  font-size: 9px;
+}
+
+.pixabay-link {
+  color: #fff;
 }
 
 .output__main__buttons {
