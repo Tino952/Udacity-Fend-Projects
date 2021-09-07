@@ -93,9 +93,7 @@ async function getGeonames (inp) {
   let placename = inp.replace(/[,]/g, '');
   let apiKey = await getKeys("/apiKey", "geonames");
   let compiledUrl = `${urlStart}placename=${placename}&maxRows=10&username=${apiKey}`
-  console.log(compiledUrl);
   let myData = await getData(compiledUrl)
-  console.log(myData);
   let myDataArr = myData.postalCodes
   return myDataArr;
 }
@@ -107,9 +105,7 @@ async function getWeatherbit (lat, lng, days) {
   let urlStart = "https://api.weatherbit.io/v2.0/forecast/daily?"
   let apiKey = await getKeys("/apiKey", "weatherbit");
   let compiledUrl = `${urlStart}lat=${lat}&lon=${lng}&key=${apiKey}`
-  console.log(compiledUrl);
   let myData = await getData(compiledUrl)
-  console.log(myData);
   let myWeather = {}
   myWeather.temp = myData.data[days].temp;
   myWeather.description = String(myData.data[days].weather.description);

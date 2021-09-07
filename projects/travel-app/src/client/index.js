@@ -34,12 +34,20 @@ import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
   myDestInp.setAttribute("lng", myList[0].lng);
 
-  // initialize event listener incase user wants to only change dates of init
+  // initialize buttons incase user wants to only change dates of init
   // destination and search
 
   let myInputButton = document.getElementById("input-go");
 
   myInputButton.addEventListener("click", go);
+
+  let saveTrip = document.getElementById("save-trip");
+
+  saveTrip.addEventListener("click", storeIt);
+
+  let removeTrip = document.getElementById("remove-trip");
+
+  saveTrip.addEventListener("click", removeIt);
 
   go();
 
@@ -65,10 +73,16 @@ function updateUiList (name, coordinates) {
     myDestInp.setAttribute("lng", coordinates.lng);
     // clear list of links
     myDestList.innerHTML = "";
-    // add click event listener to "Go!" button when we make a selection
+    // add click event listener to our buttons when we make a selection
     let myInputButton = document.getElementById("input-go");
-    myInputButton.classList.remove("prevent-go");
     myInputButton.addEventListener("click", go);
+    myInputButton.classList.remove("prevent-click");
+    let saveTrip = document.getElementById("save-trip");
+    saveTrip.addEventListener("click", storeIt);
+    saveTrip.classList.remove("prevent-click");
+    let removeTrip = document.getElementById("remove-trip");
+    removeTrip.addEventListener("click", removeIt);
+    removeTrip.classList.remove("prevent-click");
   }))
 
   myDestList.appendChild(myListElem);
@@ -93,10 +107,16 @@ async function genList (event) {
 
   document.getElementById("city-input__list").innerHTML = ""
 
-  // remove click event listener from "Go!" button while we are typing...
+  // remove click event listener from button while we are typing...
   let myInputButton = document.getElementById("input-go");
   myInputButton.removeEventListener("click", go);
-  myInputButton.classList.add("prevent-go");
+  myInputButton.classList.add("prevent-click");
+  let saveTrip = document.getElementById("save-trip");
+  saveTrip.removeEventListener("click", storeIt);
+  saveTrip.classList.add("prevent-click");
+  let removeTrip = document.getElementById("remove-trip");
+  removeTrip.removeEventListener("click", removeIt);
+  removeTrip.classList.add("prevent-click");
 
   if (myList !== undefined) {
 
@@ -110,8 +130,6 @@ async function genList (event) {
 
       let myDestName = (elem.placeName + ", " + elem.adminName1 + ", " +
       elem.countryCode);
-
-      console.log(elem);
 
       let myDestNameNoDigits = myDestName.replace(/[0-9]/g, "");
 
@@ -193,4 +211,37 @@ async function updatePhoto (name) {
 
   document.getElementById("city-photo").style.backgroundImage=`url(${myUrl})`;
 
+}
+
+let tripnum = 1;
+
+function storeIt () {
+  let myDate = document.getElementById("date-input__form").value
+  let myDest = document.getElementById("city-input__sel").value;
+  let myTrips = document.getElementById("saved-trips");
+  let myTripElem = document.createElement("li");
+  myTripElem.classList.add("plane");
+  let myTripLink = document.createElement("a");
+  let myDestSimple = myDest.split(",")[0].trim()
+  myTripLink.textContent = myDestSimple
+  myTripElem.appendChild(myTripLink);
+  myTrips.appendChild(myTripElem);
+  let myTripObj = {};
+  myTripObj.destination = myDestSimple;
+  myTripObj.date = myDate;
+  // trip information: city key, date value
+  localStorage.setItem(tripnum, JSON.stringify(myTripObj));
+  console.log(localStorage);
+  myTripLink.addEventListener("click", retrieveTrip(myDestSimple));
+  tripnum ++;
+}
+
+function retrieveTrip (name) {
+  let myTripObj = localStorage.getItem(name);
+  console.log(myTripObj.destination);
+  console.log(myTripObj.date);
+}
+
+function removeIt () {
+  return
 }
