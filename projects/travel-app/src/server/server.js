@@ -27,7 +27,8 @@ app.listen(port, function () {
 // object with api keys
 
 const myKeys = {
-  "geonames": process.env.geonames_key
+  "geonames": process.env.geonames,
+  "weatherbit" : process.env.weatherbit
 }
 
 // post request to send api key to client
@@ -37,7 +38,7 @@ app.post("/apiKey", sendKey);
 function sendKey (req, res) {
   try {
     let api = req.body;
-    let key = JSON.stringify(myKeys.geonames);
+    let key = JSON.stringify(myKeys[api]);
     res.send(key);
   } catch(error) {
       console.log(error)

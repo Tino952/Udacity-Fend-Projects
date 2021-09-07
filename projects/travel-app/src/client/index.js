@@ -12,11 +12,11 @@ import {myObj} from ".//js/app.js"
 
 // import functions to run HTTP requests
 
-import {asyncStack} from ".//js/app.js"
+import {getGeonames, getWeatherbit} from ".//js/app.js"
 
-// initialize page
+// initialize page with data from placeholder object exported from app.js
 
-(() => {
+(async () => {
 
   let initDate = myObj.date
 
@@ -24,49 +24,125 @@ import {asyncStack} from ".//js/app.js"
 
   document.getElementById("date-input__form").value = initDate;
 
-  updateList(initDest);
+  let myDestInp = document.getElementById("city-input__sel");
 
-  let myDestSel = document.getElementById("city-input__sel");
+  myDestInp.value = initDest
 
-  let myDestList = document.getElementById("city-input__list");
+  let myList = await getGeonames(initDest);
 
-  myDestSel.val = myDestList.firstChild.value;
+  myDestInp.setAttribute("lat", myList[0].lat);
 
-  submit();
+  myDestInp.setAttribute("lng", myList[0].lng);
+
+  // initialize event listener incase user wants to only change dates of init
+  // destination and search
+
+  let myInputButton = document.getElementById("input-go");
+
+  myInputButton.addEventListener("click", go);
+
+  go();
 
 })()
 
 // function to update datalist
 
-function updateList (inp) {
+function updateUiList (name, coordinates) {
 
-  let myDataList = document.getElementById("city-input__list");
+  let myDestList = document.getElementById("city-input__list");
 
-  let myListElem = document.createElement("option");
+  let myListElem = document.createElement("a");
 
-  myListElem.value = inp.toString();
+  myListElem.classList.add("city-input__list-elem")
 
-  myDataList.appendChild(myListElem);
+  myListElem.textContent = name.toString();
+
+  myListElem.addEventListener("click", (event=> {
+    let myDestInp = document.getElementById("city-input__sel");
+    myDestInp.value = myListElem.textContent
+    // assign lat and long attributes of chosen list element to dest input
+    myDestInp.setAttribute("lat", coordinates.lat);
+    myDestInp.setAttribute("lng", coordinates.lng);
+    // clear list of links
+    myDestList.innerHTML = "";
+    // add click event listener to "Go!" button when we make a selection
+    let myInputButton = document.getElementById("input-go");
+    myInputButton.classList.remove("prevent-go");
+    myInputButton.addEventListener("click", go);
+  }))
+
+  myDestList.appendChild(myListElem);
 
 }
 
-// getting destination and date inputs from user
+// keyup event listener for destination input field
 
-let myInputButton = document.getElementById("input-go");
+let myDestInput = document.getElementById("city-input__sel");
 
-myInputButton.addEventListener("click", submit);
+myDestInput.addEventListener("keyup", genList);
 
 // function to run on user input and clicking on "go" button
 
-function submit (event) {
+async function genList (event) {
 
-  let myDate = document.getElementById("date-input__form").value;
+  // returns array of objects with placenames based on input destination
 
-  let myDestination = document.getElementById("city-input__sel").value;
+  let myList = await getGeonames(myDestInput.value);
 
-  updateUi(myDestination, myDate);
+  // clear previous items
 
-  asyncStack(myDestination);
+  document.getElementById("city-input__list").innerHTML = ""
+
+  // remove click event listener from "Go!" button while we are typing...
+  let myInputButton = document.getElementById("input-go");
+  myInputButton.removeEventListener("click", go);
+  myInputButton.classList.add("prevent-go");
+
+  if (myList !== undefined) {
+
+    // working with a map makes it easy to avoid duplicate items
+
+    const myMap = new Map();
+
+    for (let elem of myList) {
+
+      let myDestCoordinates = {};
+
+      let myDestName = (elem.placeName + ", " + elem.adminName1 + ", " +
+      elem.countryCode);
+
+      console.log(elem);
+
+      let myDestNameNoDigits = myDestName.replace(/[0-9]/g, "");
+
+      myDestCoordinates.lat = elem.lat;
+
+      myDestCoordinates.lng = elem.lng;
+
+      if (myMap.has(myDestNameNoDigits)) {
+        continue
+      } else {
+        myMap.set(myDestNameNoDigits, myDestCoordinates);
+      }
+      }
+
+      for (let [key, value] of myMap) {
+        updateUiList(key, value);
+      }
+  }
+}
+
+function go (event) {
+
+  let date = document.getElementById("date-input__form").value
+
+  let myDestInp = document.getElementById("city-input__sel").value
+
+  let name = myDestInp.split(",")[0].trim();
+
+  updateUi(name, date);
+
+  updatePhoto(name);
 
 }
 
@@ -90,14 +166,29 @@ function updateUi(dest, date) {
 
   myDays.innerHTML = `${dest} is ${difference} days away`;
 
-  updateWeather()
+  updateWeather(difference);
 
 }
 
-function updateWeather () {
+async function updateWeather (days) {
 
   let myWeather = document.getElementById("output__main__weather__entry");
 
-  myWeather.textContent = "High - 46"
+  let lng = document.getElementById("city-input__sel").getAttribute("lng");
+
+  let lat = document.getElementById("city-input__sel").getAttribute("lat");
+
+  if (days < 16) {
+    let myWeatherData = await getWeatherbit(lat, lng, days);
+    myWeather.textContent = `Forecast weather for your departure date: ${myWeatherData.temp}° with ${myWeatherData.description.toLowerCase()}`;
+  } else {
+    myWeather.textContent = "";
+  }
+
+}
+
+function updatePhoto (name) {
+
+  return;
 
 }

@@ -1,6 +1,6 @@
 const myObj = {
 
-  dest: "Paris, FR",
+  dest: "Berlin, Berlin, DE",
   date: ""
 
 };
@@ -52,6 +52,20 @@ export {myObj};
 
 //////////////////////////////////////////////////////////////////////////
 
+// Plain vanilla get url function to communicate with apis
+
+async function getData (url = "") {
+
+    const request = await fetch(url)
+
+    try {
+        const newData = await request.json();
+        return newData;
+    } catch(error) {
+        console.log(error)
+    }
+}
+
 // function to retrieve api keys from server
 
 async function getKeys (url = "", data = "") {
@@ -72,39 +86,33 @@ async function getKeys (url = "", data = "") {
   }
   }
 
-
 // compiling user input and executing geonames api call
 
-async function asyncStack (inp) {
+async function getGeonames (inp) {
   let urlStart = "http://api.geonames.org/postalCodeSearchJSON?";
-  let destArr = inp.split(",")
-  let placename = destArr[0].trim();
-  let country = "";
-  if (destArr[1]) {
-    country = destArr[1].trim()
-  }
-  if (destArr[2]) {
-    placename = destArr[0].trim() + "," + destArr[1].trim();
-    country = destArr[2].trim();
-  }
+  let placename = inp.replace(/[,]/g, '');
   let apiKey = await getKeys("/apiKey", "geonames");
-  let compiledUrl = `${urlStart}placename=${placename}&country=${country}&maxRows=10&username=${apiKey}`
-  let myData = await geonamesCall(compiledUrl)
+  let compiledUrl = `${urlStart}placename=${placename}&maxRows=10&username=${apiKey}`
+  console.log(compiledUrl);
+  let myData = await getData(compiledUrl)
   console.log(myData);
-  // next get user to select which one, my making drop-down list on type 
+  let myDataArr = myData.postalCodes
+  return myDataArr;
 }
 
-export {asyncStack};
+// compiling url based on lat and lon of selected input destination
 
-
-async function geonamesCall (url = "") {
-
-    const request = await fetch(url)
-
-    try {
-        const newData = await request.json();
-        return newData;
-    } catch(error) {
-        console.log(error)
-    }
+async function getWeatherbit (lat, lng, days) {
+  let urlStart = "https://api.weatherbit.io/v2.0/forecast/daily?"
+  let apiKey = await getKeys("/apiKey", "weatherbit");
+  let compiledUrl = `${urlStart}lat=${lat}&lon=${lng}&key=${apiKey}`
+  console.log(compiledUrl);
+  let myData = await getData(compiledUrl)
+  console.log(myData);
+  let myWeather = {}
+  myWeather.temp = myData.data[days].temp;
+  myWeather.description = String(myData.data[days].weather.description);
+  return myWeather;
 }
+
+export {getGeonames, getWeatherbit};
