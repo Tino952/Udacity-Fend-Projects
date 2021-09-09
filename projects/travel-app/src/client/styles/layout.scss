@@ -8,23 +8,25 @@ main {
 
 .input {
   margin: $mobile-padding;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-around;
+  display: grid;
+  grid-template-rows: 12em 1fr;
   grid-gap: 1em;
-  margin-top: $mobile-margin-top
+  margin-top: $mobile-margin-top;
 }
 
 @media only screen and (min-width: 420px) {
 
   .input {
-    flex-direction: row;
+    grid-template-rows: 1;
+    grid-template-columns: 1fr 1fr;
     margin: $web-padding;
-    margin-top: $web-margin-top
+    margin-top: $web-margin-top;
+
   }
 }
 
 .input_sidebar {
+  position: relative;
   display: flex;
   flex-direction: column;
   grid-gap: 0.75em;

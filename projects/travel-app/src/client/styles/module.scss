@@ -6,7 +6,23 @@
   display: flex;
   flex-direction: column;
   grid-gap: 0.25em;
-  width: 100%;
+  width: 15em;
+}
+
+.top {
+  position: relative;
+  z-index: 5;
+  background-color: #fff;
+}
+
+.bottom {
+  position: absolute;
+  top: 4em;
+}
+
+.bottom-button {
+  position: absolute;
+  top: 9em;
 }
 
 .input__head {
@@ -18,6 +34,7 @@
 .city-input__list-elem {
   display: block;
   padding-left: 1.5em;
+  padding-right: 0.2em;
   cursor: pointer;
   border: 1px solid grey;
   &:hover {

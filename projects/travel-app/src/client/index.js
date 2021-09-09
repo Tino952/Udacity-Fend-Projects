@@ -1,10 +1,13 @@
+// To Do:
+
+// import event listener for rubric
+// run test on client and server
+// install service workers
+// create README
+
 // importing styles
 
 import ".//styles/styles.scss"
-
-// importing validator
-
-import {validateDestination} from ".//js/validateDestination.js"
 
 // import placeholder for page init
 
@@ -13,6 +16,10 @@ import {myObj} from ".//js/app.js"
 // import functions to run HTTP requests
 
 import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
+
+// importing event listener as per rubric instructions
+
+import {myEventListener} from ".//js/eventListener.js"
 
 // initialize page with data from placeholder object exported from app.js
 
@@ -230,7 +237,7 @@ function storeIt () {
   myTripLink.textContent = myDestSimple + ", " + myCompiledDate;
   myTripElem.appendChild(myTripLink);
   myTrips.appendChild(myTripElem);
-  // setting unique local storate key based on dest and date for case that user
+  // setting unique local storage key based on dest and date for case that user
   // saves multiple dates for the same destination
   let localStorageKey = myDest + ":" + myDate
   localStorage.setItem(localStorageKey, myDate);
@@ -241,8 +248,6 @@ function storeIt () {
 function retrieveTrip (key) {
   let dest = key.split(":")[0].trim()
   let date = localStorage.getItem(key);
-  console.log(localStorage);
-  console.log(dest);
   document.getElementById("date-input__form").value = date
   document.getElementById("city-input__sel").value = dest
   go();

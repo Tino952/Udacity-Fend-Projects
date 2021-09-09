@@ -123,7 +123,7 @@ async function getPixabay (dest) {
   let myData = await getData(compiledUrl)
   let myDataLength = myData.hits.length
   let randPhoto = Math.floor(Math.random()*myDataLength);
-  let myUrl = ""
+  let myUrl = "";
   if (myData.hits.length > 0) {
     myUrl = myData.hits[randPhoto].webformatURL;
   } else {
