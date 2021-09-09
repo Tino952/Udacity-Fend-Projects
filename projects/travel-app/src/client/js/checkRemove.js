@@ -14,4 +14,14 @@ function checkRemove () {
   }
 }
 
+function removeIt () {
+  let myDest = document.getElementById("city-input__sel").value;
+  let myDate = document.getElementById("date-input__form").value;
+  localStorage.removeItem(myDest);
+  let myId = myDate+myDest;
+  let myTripElem = document.getElementById(myId);
+  myTripElem.parentElement.removeChild(myTripElem);
+  checkRemove()
+}
+
 export {checkRemove};

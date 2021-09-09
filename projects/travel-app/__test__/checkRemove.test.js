@@ -1,5 +1,4 @@
 import {checkRemove} from "../src/client/js/checkRemove.js"
-// import {checkRemove} from "../src/client/index.js"
 
 describe("Testing the \"remove trip\" button", () => {
 
@@ -24,7 +23,7 @@ describe("Testing the \"remove trip\" button", () => {
     myDate.value = "2021-10-01";
 
     // running a piece of code from storeIt function which creates a list element
-    // for a saved trip and adds this to "saved-trips"
+    // for a saved trip and adds this to ul "saved-trips"
 
     let myTrips = document.getElementById("saved-trips");
     let myTripElem = document.createElement("li");
@@ -33,7 +32,7 @@ describe("Testing the \"remove trip\" button", () => {
 
     let init = ""
 
-    // check that remove-trip button is enabledjest.mock("./isInteger", () => () => false);
+    // check that remove-trip button is enabled
 
     if (document.querySelector(".prevent-click")) {init = true};
 
