@@ -9,18 +9,18 @@
   width: 15em;
 }
 
-.top {
+.input__container__top {
   position: relative;
   z-index: 5;
   background-color: #fff;
 }
 
-.bottom {
+.input__container__bottom {
   position: absolute;
   top: 4em;
 }
 
-.bottom-button {
+.input__container__bottom-button {
   position: absolute;
   top: 9em;
 }

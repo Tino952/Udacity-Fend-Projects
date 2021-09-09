@@ -1,6 +1,5 @@
 // To Do:
 
-// import event listener for rubric
 // run test on client and server
 // install service workers
 // create README
@@ -17,7 +16,7 @@ import {myObj} from ".//js/app.js"
 
 import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
-// importing event listener as per rubric instructions
+// importing event listener to fulfill rubric instructions
 
 import {myEventListener} from ".//js/eventListener.js"
 
@@ -105,7 +104,7 @@ myDestInput.addEventListener("keyup", genList);
 
 // function to run on user input and clicking on "go" button
 
-async function genList (event) {
+async function genList () {
 
   // returns array of objects with placenames based on input destination
 
@@ -157,7 +156,7 @@ async function genList (event) {
   }
 }
 
-function go (event) {
+function go () {
 
   let date = document.getElementById("date-input__form").value
 
@@ -278,3 +277,5 @@ function removeIt () {
   myTripElem.parentElement.removeChild(myTripElem);
   checkRemove()
 }
+
+export {checkRemove};
