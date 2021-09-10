@@ -2,7 +2,7 @@
 
 // run test on client and server
 // install service workers
-// comment code better 
+// comment code better
 // create README
 
 // importing styles
@@ -11,7 +11,7 @@ import ".//styles/styles.scss"
 
 // import placeholder for page init
 
-import {myObj} from ".//js/app.js"
+import {myObj} from ".//js/utils.js"
 
 // import functions to run HTTP requests
 

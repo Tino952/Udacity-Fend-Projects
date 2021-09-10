@@ -1,5 +1,5 @@
 const config = {
-  verbose: true,
+  // verbose: true,
   testEnvironment: 'jsdom',
   // transform: {}
 };
