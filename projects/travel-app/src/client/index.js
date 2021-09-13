@@ -1,8 +1,3 @@
-// To Do:
-
-// comment code better
-// create README
-
 // importing styles
 
 import ".//styles/styles.scss"

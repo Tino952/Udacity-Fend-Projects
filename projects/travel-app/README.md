@@ -18,6 +18,8 @@ First, enter a travel destination and pick travel dates. The maximum travel peri
 
 The user has the option to save a trip or remove a previously saved trip by clicking on the corresponding buttons. This feature works with local storage, enabling the user to see saved trips even if the browser is closed and reopened.
 
+Please note that the Weatherbit API only returns weather forecasts for the next 16 days, so if the entered travel date is further than 16 days in the future, no weather information is returned.
+
 ## Under the Hood
 
 APIs used include:

@@ -43,7 +43,7 @@ app.post('/sendData', function (req, res) {
 })
 
 function compileUrl (url, num) {
-  let urlStart = "http://api.meaningcloud.com/summarization-1.0?";
+  let urlStart = "https://api.meaningcloud.com/summarization-1.0?";
   let apiKey = process.env.API_KEY;
   let myUrl = url;
   let myNum = num;
