@@ -1,4 +1,4 @@
-import {checkRemove} from "../src/client/js/checkRemove.js"
+import {checkRemove} from "../../src/client/js/checkRemove.js"
 
 describe("Testing the \"remove trip\" button", () => {
 
@@ -12,6 +12,7 @@ describe("Testing the \"remove trip\" button", () => {
       '<input name="destination" id="city-input__sel">' +
       '<input type="date" name="enter date here" id="date-input__form" value="" min="" max="">' +
       '<button type="button" class="prevent-click" id="remove-trip">Remove Trip</button>' +
+      '<button type="button" class="" id="save-trip">Save Trip</button>' +
       '<ul id="saved-trips"></ul>';
 
     // set value of destination and date
@@ -38,12 +39,12 @@ describe("Testing the \"remove trip\" button", () => {
 
     checkRemove();
 
-      // we should have removed the "prevent-click" class after running
-      // checkRemove function, as the searched destination and date have been
-      // stored under saved trips
+      // we should have removed the "prevent-click" class from the "remove trip"
+      // button after running the checkRemove function, as the searched destination
+      // and date have been stored under saved trips, and can now be removed
 
       expect(init).toEqual(true);
 
-      expect(document.querySelector(".prevent-click")).toEqual(null);
+      expect(document.getElementById("remove-trip").classList.contains("prevent-click")).toEqual(false);
 
 })});

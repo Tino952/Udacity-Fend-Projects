@@ -21,7 +21,7 @@ import {getGeonames, getWeatherbit, getPixabay} from ".//js/app.js"
 
 import {myEventListener} from ".//js/eventListener.js"
 
-// importing checkRemove, a function which we also test in jest
+// importing checkRemove, a function for which we also run a test in jest
 
 import {checkRemove} from ".//js/checkRemove.js"
 
@@ -245,9 +245,14 @@ function storeIt () {
   // saves multiple dates for the same destination
   let localStorageKey = myDest + ":" + myDate
   localStorage.setItem(localStorageKey, myDate);
-  myTripLink.addEventListener("click", ()=> {retrieveTrip(localStorageKey)});
+  myTripLink.addEventListener("click", ()=>{retrieveTrip(localStorageKey)});
   checkRemove();
 }
+
+// Note that event listener callbacks only work with input passed to them if they
+// are wrapped in a function.
+
+// why is this?
 
 function retrieveTrip (key) {
   let dest = key.split(":")[0].trim()

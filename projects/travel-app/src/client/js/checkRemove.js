@@ -5,12 +5,15 @@ function checkRemove () {
   let myTripElem = document.getElementById(myId);
   // if element is in list of saved trips, then enable remove button
   let removeTrip = document.getElementById("remove-trip");
+  let saveTrip = document.getElementById("save-trip");
   if (myTripElem) {
     removeTrip.classList.remove("prevent-click");
     removeTrip.addEventListener("click", removeIt);
+    saveTrip.classList.add("prevent-click");
   } else {
     removeTrip.classList.add("prevent-click");
     removeTrip.removeEventListener("click", removeIt);
+    saveTrip.classList.remove("prevent-click");
   }
 }
 
