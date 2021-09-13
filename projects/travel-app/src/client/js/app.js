@@ -1,5 +1,6 @@
 // running asynchronous code
 
+// importing async utility functions
 import {getData, getKeys} from ".//asyncUtils.js"
 
 // compiling user input and executing geonames api call
@@ -8,9 +9,12 @@ async function getGeonames (inp) {
   try {
     let urlStart = "http://api.geonames.org/postalCodeSearchJSON?";
     let placename = inp.replace(/[,]/g, '');
+    // getting the API key from server
     let apiKey = await getKeys("/apiKey", "geonames");
     let compiledUrl = `${urlStart}placename=${placename}&maxRows=10&username=${apiKey}`
     let myData = await getData(compiledUrl)
+    // API returns an object, of which we want to access the array of data
+    // under "postcodes" obj attribute
     let myDataArr = myData.postalCodes
     return myDataArr;
   } catch(err) {
@@ -18,7 +22,7 @@ async function getGeonames (inp) {
   }
 }
 
-// compiling url based on lat and lon of selected input destination and/
+// compiling url based on lat and lon of selected input destination and
 // retrieving weather data from weatherbit api
 
 async function getWeatherbit (lat, lng, days) {
@@ -44,6 +48,8 @@ async function getPixabay (dest) {
   let myDataLength = myData.hits.length
   let randPhoto = Math.floor(Math.random()*myDataLength);
   let myUrl = "";
+  // if there is at least one image returned then return a randomly selected
+  // image from max. 10 search results (see url "per_page=10")
   if (myData.hits.length > 0) {
     myUrl = myData.hits[randPhoto].webformatURL;
   } else {
@@ -57,7 +63,8 @@ async function getPixabay (dest) {
 
 export {getGeonames, getWeatherbit, getPixabay};
 
-// fulfilling rubric requirements. I keep my actual obj placeholder in utils.js
+// fulfilling rubric requirements by having a primary placeholder in app.js.
+// For this project I keep my obj placeholder in utils.js
 
 const primaryPlaceholder = {
   key: "value",

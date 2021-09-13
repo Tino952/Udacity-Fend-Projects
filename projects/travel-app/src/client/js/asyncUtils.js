@@ -1,9 +1,3 @@
-//////////////////////////////////////////////////////////////////////////
-
-// setting up asynchronous js
-
-//////////////////////////////////////////////////////////////////////////
-
 // Plain vanilla get url function to communicate with apis
 
 async function getData (url = "") {
@@ -18,7 +12,7 @@ async function getData (url = "") {
     }
 }
 
-// function to retrieve api keys from server
+// Function to retrieve api keys from server
 
 async function getKeys (url = "", data = "") {
   const response = await fetch(url, {

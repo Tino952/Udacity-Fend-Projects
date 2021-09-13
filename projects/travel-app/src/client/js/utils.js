@@ -1,3 +1,5 @@
+// primary object placeholder to initialize page
+
 const myObj = {
 
   dest: "Berlin, Berlin, DE",
