@@ -1,7 +1,5 @@
 // To Do:
 
-// run test on client and server
-// install service workers
 // comment code better
 // create README
 

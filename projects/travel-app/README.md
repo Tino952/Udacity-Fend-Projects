@@ -1,33 +1,61 @@
-# Natural Language Processing Project
+# Capstone Project - Travel App
 
 ## Rationale
 
-The aim of this project is to build a client and server-side architecture in order to interact with the Meaning Cloud API
-using RESTful services. I have decided to implement the summarizing functionality provided by the Meaning Cloud API.
+The aim of this project was to combine all the skills we learned in the Front End Nanodegree in order to build a web application that enables a user to search for a travel destination, and see a photo of this destination as well as the forecast weather for the chosen dates.
 
-This functionality relies on a natural language processing algorithm to shorten long texts to a desired length while attempting
-to include only the most pertinent details from the text.
+The main pillars of this project included:
 
-This project is compied and built using webpack. Tests to validate user input are implemented in jest, and service workers are installed to allow for offline functionality and less server time.
+* Responsive, mobile-first web design
+* CRUD async operations
+* Compilation and build with Webpack
+* Unit-testing with Jest
+* Use of service workers for offline functionality
 
-## Using SummarizeMe
+## Using the App
 
-First, select a URL with a text that you wish to summarize. Past3 this URL into the designated input-field in the UI, press enter, and finally select within how many sentences you would like the summary to be generated. Hit enter one more time to generate your summary.
+First, enter a travel destination and pick travel dates. The maximum travel period is one year from the current date. Next, click "Go" in order to see a photo and the predicted weather for this destination, as well as the days remaining until the beginning of the trip.
 
-Your summary will appear in the output-box below.
+The user has the option to save a trip or remove a previously saved trip by clicking on the corresponding buttons. This feature works with local storage, enabling the user to see saved trips even if the browser is closed and reopened.
 
+## Under the Hood
+
+APIs used include:
+
+* Geonames API
+* Weatherbit API
+* Pixabay API
+
+Upon entering a destination in the search bar the user triggers a get request of matching destinations from the Geonames API. This populates a custom dropdown returning the first 10 search results from Geonames. Upon selecting a destination, the coordinates of that destination, which were saved as attributes to each list element of the dropdown are sent to the Weatherbit API to search for the weather for those coordinates. Finally, the Pixabay API receives the city name selected by the user and shows a randomly selected top 10 search result image for that destination. If the user enters an obscure city name that doesn't generate any search results on Pixabay, a default photo of the search term "city" is used instead.
 
 ## Dependencies
 
 Please refer to the package.JSON file for an overview of all dependencies used.
 
-## Additional Features of this Project
+## Defining Features of this Project
 
-I have decided to implement a hand-drawn arrow to the url-input box using canvas. In order to calculate the angle of the arrow head, and draw a curved line using a quadratic bezier function, I relied on the following resources. Credits to these developers for this part of the project.
+In this project in particular I focused on better understanding the unit-testing package Jest. In particular, I ran tests in the following areas:
 
-* Arrow Head: [https://gist.github.com/bhtek/a2d545cf4dae316c8329]
+* Virtual-DOM environment
+* On the server using supertest to mimic HTTP requests
+* Using module mocking to inject dependencies into tests of asynchronous functions
+* Maintaining one config file while running tests in multiple environments (virtual DOM and node)
 
-* Quadratic Bezier: [https://developpaper.com/drawing-a-curve-animation-with-canvas/]
+Moreover, in this project I learned and implemented the use of local storage to save data to the browser.
 
+## Extended Options for Udacity Grader
 
-Shaka Khan :squid:
+I have decided to implement the following extensions to this project:
+
+* Returning a default photo if the chosen destination generates no hits on Pixabay
+* Using local storage to save and retrieve user searches
+  * This also allows the user to remove a previously saved trip
+
+## Further Developments
+
+With more time and effort into this project I would like to further modularize my code, breaking larger functions into smaller ones, and generally refactoring my code. Furthermore I would improve the visual design of the layout and generally make the user experience more visually appealing. Further developments I would have liked to implement include:
+
+* Allowing the user to generate a PDF of saved searches
+* Incorporate icons into the weather forecast
+
+Cheers! :v:

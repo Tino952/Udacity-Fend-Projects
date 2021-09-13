@@ -4,6 +4,7 @@ const HtmlWebPackPlugin = require("html-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const WorkboxPlugin = require('workbox-webpack-plugin');
 const { merge } = require("webpack-merge");
 
 
@@ -46,6 +47,9 @@ const prodConfig = {
     // this eliminates the need for the clean webpack plugin
     clean: true,
   },
+  plugins: [
+    new WorkboxPlugin.GenerateSW()
+  ]
 };
 
 const devConfig = {
