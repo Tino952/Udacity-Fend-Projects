@@ -63,4 +63,6 @@ With more time and effort into this project I would like to further modularize m
 Furthermore I would also try to cause "save-trip" button to only be activated after the
 user clicks on "go" and not only when the user enters a destination and date. As part of the refactoring I would also write the code to more effectively deal with the "checkRemove" function, so as not to call this function so many times at different points in my code.
 
+### [To the app](https://travel-app-952.herokuapp.com/)
+
 Cheers! :v:

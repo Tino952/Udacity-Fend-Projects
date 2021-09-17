@@ -1,6 +1,16 @@
 # Front End Nanodegree Program
 
-These are a collection of some of the web applications I developed during my enrolment in the Front End Nanodegree with Udacity
+These are a collection of some of the web applications I developed during my enrolment in the Front End Nanodegree with Udacity.
+
+All projects are developed using Plain Vanilla Js.
+
+Main Pillars of this nanodegree included:
+
+* Responsive, mobile-first web design
+* Async operations & HTTP requests
+* Compilation and build with Webpack
+* Unit-testing with Jest
+* Use of service workers for offline functionality
 
 ## Table of Contents
 
