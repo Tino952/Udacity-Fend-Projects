@@ -29,5 +29,6 @@ I have decided to implement a hand-drawn arrow to the url-input box using canvas
 
 * Quadratic Bezier: [https://developpaper.com/drawing-a-curve-animation-with-canvas/]
 
+[To the app](https://summarize-me-app.herokuapp.com/)
 
 Shaka Khan :squid:

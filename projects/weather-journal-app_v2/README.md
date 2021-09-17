@@ -25,4 +25,6 @@ In the second iteration of this app, the weather data retrieved from the API and
 ## Dependencies
 None
 
+[To the app](https://weather-journal-appv2-952.herokuapp.com/)
+
 Stay classy! :sunny:
