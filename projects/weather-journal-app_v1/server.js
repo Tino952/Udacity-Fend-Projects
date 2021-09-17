@@ -3,6 +3,12 @@
 
 userResponses = [];
 
+// requiring dotenv to hold api Key
+
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 // setting up an express environment and initializing an instance of express
 // require("express") returns a function, which we assign to const express
 
@@ -54,7 +60,6 @@ function logSharedData (req, res) {
   userResponses.push(myLogInstance);
   let myResponse =  postCounter;
   res.send(JSON.stringify(myResponse));
-  console.log(userResponses);
   postCounter ++;
 }
 
@@ -65,6 +70,20 @@ function sendData (req, res) {
   let i = parseInt(req.body);
   let message = userResponses[i-1].message;
   res.send(JSON.stringify(message))
+}
+
+// sending api key to client
+
+let apiKey = process.env.API_KEY;
+
+app.get("/getKey", sendKey)
+
+function sendKey (req, res) {
+  try {
+    res.send(JSON.stringify(apiKey))
+  } catch (error) {
+    console.log(error)
+  }
 }
 
 // as exlained in app.js introduction, I have updated the UI using the returned data from

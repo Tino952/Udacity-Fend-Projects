@@ -2,23 +2,21 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-// declaring global variable
-
-/////////////////////////////////////////////////////////////////////////////
-
-const apiKey = "313b04c8f9f854f041863f1759ceecbe";
-
-/////////////////////////////////////////////////////////////////////////////
-
 // HTTP methods
 
 /////////////////////////////////////////////////////////////////////////////
 
+// function for retrieving api key from server
+
+async function getApiKey () {
+  return await getIt("/getKey");
+}
+
 // get request for getting weather data from api
 
-async function getUrl (url = "") {
+async function getIt (url = "") {
 
-    const request = await fetch(url+apiKey)
+    const request = await fetch(url)
 
     try {
         const newData = await request.json();
@@ -94,9 +92,12 @@ async function inputInit() {
   // zip code entered by user
   let zipInput = document.querySelector("#zip");
   let myZip = zipInput.value
+  // retrieving apiKey from server
+  let apiKey = await getApiKey();
   // create url and initiate get http request
-  let myUrl = startUrl+myZip+endUrl
-  const result = await getUrl(myUrl);
+  let myUrl = startUrl+myZip+endUrl+apiKey;
+  console.log(myUrl);
+  const result = await getIt(myUrl);
   return result;
 }
 

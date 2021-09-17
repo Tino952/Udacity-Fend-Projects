@@ -12,14 +12,6 @@
 
 /////////////////////////////////////////////////////////////////////////////
 
-// declaring global variable
-
-/////////////////////////////////////////////////////////////////////////////
-
-const apiKey = "313b04c8f9f854f041863f1759ceecbe";
-
-/////////////////////////////////////////////////////////////////////////////
-
 // HTTP methods
 
 /////////////////////////////////////////////////////////////////////////////
@@ -36,6 +28,12 @@ const getIt = async (url = "") => {
     } catch(error) {
         console.log(error)
     }
+}
+
+// function for retrieving api key from server
+
+async function getApiKey () {
+  return await getIt("/getKey");
 }
 
 // post request for sending user messages to server
@@ -170,6 +168,8 @@ async function inputInit() {
   // city name entered by user
   let cityInput = document.querySelector("#city-input");
   let myCity = cityInput.value
+  // retrieving apiKey from server
+  let apiKey = await getApiKey();
   // create url and initiate get http request
   let myUrl = startUrl+myCity+endUrl+apiKey
   const result = await getIt(myUrl);
@@ -312,6 +312,8 @@ function returnedCity(result,chosenCityIndex) {
 
 // generates weather data using geographic coordinates
 async function city2Geo (lat, lon) {
+  // retrieving apiKey from server
+  let apiKey = await getApiKey();
   const geoUrl = `https://api.openweathermap.org/data/2.5/onecall?lat=${lat}&lon=${lon}&exclude=current, minutely,hourly,alerts&units=metric&appid=${apiKey}`
   const result = await getIt(geoUrl);
   return result;

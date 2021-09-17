@@ -1,6 +1,6 @@
 # Capstone Project - Travel App
 
-## Rationale
+## Overview
 
 The aim of this project was to combine all the skills we learned in the Front End Nanodegree in order to build a web application that enables a user to search for a travel destination, and see a photo of this destination as well as the forecast weather for the chosen dates.
 
@@ -59,5 +59,8 @@ With more time and effort into this project I would like to further modularize m
 
 * Allowing the user to generate a PDF of saved searches
 * Incorporate icons into the weather forecast
+
+Furthermore I would also try to cause "save-trip" button to only be activated after the
+user clicks on "go" and not only when the user enters a destination and date. As part of the refactoring I would also write the code to more effectively deal with the "checkRemove" function, so as not to call this function so many times at different points in my code.
 
 Cheers! :v:

@@ -2,6 +2,12 @@
 
 projectData = {};
 
+// requiring dotenv to hold api Key
+
+const dotenv = require('dotenv');
+
+dotenv.config();
+
 // setting up an express environment and initializing an instance of express
 // require("express") returns a function, which we assign to const express
 
@@ -55,4 +61,18 @@ app.get("/all", sendIt);
 function sendIt(req, res) {
   console.log(projectData);
   res.send(JSON.stringify(projectData));
+}
+
+// sending api key to client
+
+let apiKey = process.env.API_KEY;
+
+app.get("/getKey", sendKey)
+
+function sendKey (req, res) {
+  try {
+    res.send(JSON.stringify(apiKey))
+  } catch (error) {
+    console.log(error)
+  }
 }
