@@ -12,16 +12,15 @@ main {
   grid-template-rows: 12em 1fr;
   grid-gap: 1em;
   margin-top: $mobile-margin-top;
+  min-height: 10em;
 }
 
 @media only screen and (min-width: 420px) {
-
   .input {
-    grid-template-rows: 1;
+    grid-template-rows: auto;
     grid-template-columns: 1fr 1fr;
     margin: $web-padding;
     margin-top: $web-margin-top;
-
   }
 }
 
@@ -46,7 +45,6 @@ main {
 }
 
 @media only screen and (min-width: 420px) {
-
   .output {
     padding: $web-padding;
     padding-top: 2em;
@@ -56,5 +54,4 @@ main {
     height: 20em;
     margin-top: $web-margin-top;
   }
-
 }

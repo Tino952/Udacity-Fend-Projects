@@ -102,6 +102,8 @@
 
 .output__main__buttons {
   display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
   grid-gap: 1em;
 }
 
@@ -116,11 +118,9 @@
 }
 
 @media only screen and (min-width: 420px) {
-
   .output__main__container {
     padding-left: 2em;
   }
-
 }
 
 .output__main__head__container {
