@@ -43,8 +43,6 @@ None
 
 In this project I designed the chevron scroll bar using css and border styling. This made it quite difficult to add animation and hover effects that could interact with the intersection observer API. For this reason, in the future I would opt to use a PNG file or image file of a chevron instead. Paricularly as performance is not an issue with this project I think this would styling and animation far easier.
 
-[To the app](https://landing-page-952.herokuapp.com/)
-
-*Cheers!*
+_Cheers!_
 
 :maple_leaf:
